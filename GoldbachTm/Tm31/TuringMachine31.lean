@@ -29,7 +29,7 @@ def init (l : List Γ) : Cfg := ⟨⟨0, by omega⟩, Turing.Tape.mk₁ l⟩
 
 /-- Execution semantics of the Turing machine. -/
 def step (M : Machine) : Cfg → Option Cfg :=
-  fun ⟨q, T⟩ ↦ (M q T.1).map fun ⟨q', a⟩ ↦ ⟨q', (T.write a.write).move a.move⟩
+  fun ⟨q, T⟩ ↦ (M q T.head).map fun ⟨q', a⟩ ↦ ⟨q', (T.write a.write).move a.move⟩
 
 
 def machine : Machine
@@ -96,3 +96,20 @@ def machine : Machine
 | ⟨030, _⟩, Γ.zero => some ⟨⟨028, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨030, _⟩, Γ.one  => some ⟨⟨030, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨_+31, _⟩, _ => by omega -- https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/Pattern.20matching.20on.20Fin.20isn't.20exhaustive.20for.20large.20matches/near/428048252
+
+def nth_cfg : (n : Nat) -> Option Cfg
+| 0 => init []
+| Nat.succ n => match (nth_cfg n) with
+                | none => none
+                | some cfg =>  step machine cfg
+
+
+-- g1 = g2
+macro "forward" g1:ident g2:Lean.binderIdent i:term: tactic => `(tactic| (
+have h : nth_cfg ($i + 1) = nth_cfg ($i + 1) := rfl
+nth_rewrite 2 [nth_cfg] at h
+simp [*, step, Option.map, machine, Turing.Tape.write, Turing.Tape.move] at h
+try simp! [*, -nth_cfg] at h
+clear $g1
+rename_i $g2
+))
