@@ -1,4 +1,4 @@
-import GoldbachTm.TuringMachine27
+import GoldbachTm.Tm27.TuringMachine27
 import GoldbachTm.Basic
 
 open Tm27

@@ -4,8 +4,6 @@ import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
 
-namespace Tm31
-
 def Machine := Fin 31 → Γ → Option (Fin 31 × Stmt)
 
 structure Cfg where
@@ -98,5 +96,3 @@ def machine : Machine
 | ⟨030, _⟩, Γ.zero => some ⟨⟨028, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨030, _⟩, Γ.one  => some ⟨⟨030, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨_+31, _⟩, _ => by omega -- https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/Pattern.20matching.20on.20Fin.20isn't.20exhaustive.20for.20large.20matches/near/428048252
-
-end Tm31

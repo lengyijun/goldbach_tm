@@ -1,4 +1,5 @@
 import Mathlib.Computability.TuringMachine
+import Mathlib.Data.Nat.Prime.Defs
 
 inductive Γ
   | zero
@@ -15,3 +16,5 @@ instance : ToString Γ where
 structure Stmt where
   move : Turing.Dir
   write : Γ
+
+def goldbach (n : ℕ) := ∃ (x y: ℕ), x + y = n /\ Nat.Prime x /\ Nat.Prime y

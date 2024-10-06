@@ -3,5 +3,5 @@
 import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
-import GoldbachTm.TuringMachine27
-import GoldbachTm.TuringMachine31
+import GoldbachTm.Tm27.TuringMachine27
+import GoldbachTm.Tm31.TuringMachine31

@@ -15,7 +15,7 @@ lean_lib «GoldbachTm» where
   -- add any library configuration options here
 
 lean_exe «sim31» where
-  root := `Sim31
+  root := `GoldbachTm.Tm31.Sim31
 
 lean_exe «sim27» where
-  root := `Sim27
+  root := `GoldbachTm.Tm27.Sim27
