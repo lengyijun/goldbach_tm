@@ -99,26 +99,13 @@ induction rb with intros i la lb ra l r g hm
               obtain ⟨j, la', lb', g, h₁, h₂⟩ := g
               apply induction_step at g
               rw [← h₂] at g
-              have h : ra + 1 + 2 = ra + 3 := by omega
-              rw [h] at g
+              ring_nf at *
               specialize g h₁
               obtain ⟨k, la'', lb'', g, h₃, h₄⟩ := g
               use! (j+k), la'', lb''
+              ring_nf at *
               repeat any_goals constructor
-              any_goals tauto
-              . rw [← Nat.add_assoc i, g]
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                apply congr <;> try rfl
-                omega
-              . have h : ra + (rb + 1) +2 = ra + 1 + rb + 2:= by omega
-                rw [h]
-                assumption
+              all_goals tauto
 
 --    l 0 1 0  [lb 11]    0  0  [(rb+1) 1] 0 r
 --          c1            ^  c2
@@ -192,25 +179,7 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
               use (n + (22 + m + k + j + rb + lb' * 3 + la' * 2 + (1 + lb' + la' - 1)))
               ring_nf at *
               rw [g]
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              any_goals apply congr
-              any_goals rfl
-              omega
+              repeat any_goals first | omega | rfl | apply congr
 
 --    l 0 1 0  [lb 11]    0  0  [rb 1] 0 r
 --          c1            ^  c2
@@ -281,7 +250,7 @@ induction rb with intros i lb l r g p
 | zero => use 0
           simp! [g]
 | succ rb => apply step_12_n_dvd at g
-             by_cases (lb + 2 ∣ rb + 3) <;> rename_i h
+             by_cases h : (lb + 2 ∣ rb + 3)
              . have g : (lb + 2 ∣ lb + 2) := Nat.dvd_refl _
                have g := Nat.dvd_add g h
                ring_nf at p g
@@ -397,7 +366,7 @@ nth_cfg i = some ⟨⟨12, by omega⟩, ⟨Γ.zero,
   Turing.ListBlank.mk (List.replicate (lb+rb+4) Γ.one ++ List.cons Γ.zero r)⟩⟩
 := by
 induction rb with intros i lb l r g hd
-| zero => by_cases (lb+2) ∣ 2 <;> rename_i h
+| zero => by_cases h : (lb+2) ∣ 2
           . apply step_12_dvd at g
             apply g h
           . obtain ⟨divisor, _, _, h₃⟩ := hd
