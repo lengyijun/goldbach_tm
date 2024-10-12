@@ -26,36 +26,35 @@ intros g hm
 
 apply lemma_12_to_13 at g
 obtain ⟨j, g⟩ := g
-
-forward g g (i+j)
-
-forward g g (i+j+1)
+forward g g (j+i)
+forward g g (1+j+i)
 apply rec15 at g
 
-forward g g (i+j+1+1+ra+1)
+forward g g (2+j+i+ra+1)
+
 cases lb with simp_all
-| zero => forward g g (i+j+1+1+ra+1+1)
-          cases la with simp_all
-          | zero => forward g g (i+j+1+1+ra+1+1+1)
-                    forward g g (i+j+1+1+ra+1+1+1+1)
+| zero => forward g g (4+j+i+ra)
+          cases la with
+          | zero => forward g g (5+j+i+ra)
+                    forward g g (6+j+i+ra)
                     use! (j+ra+7), 0, 0
                     simp
                     constructor
-                    . have h: i+(j+ra+7) = i+ j + 1 + 1 + ra + 1 + 1 + 1 + 1 + 1 := by omega
+                    . have h: i+(j+ra+7) = 7+j +i + ra := by omega
                       rw [h, g]
                       constructor
                     . apply Nat.modEq_one
           | succ la =>  simp! [*, -nth_cfg] at g
                         apply rec10 at g
-                        forward g g (i+j+1+1+ra+1+1+1+la+1)
-                        forward g g (i+j+1+1+ra+1+1+1+la+1+1)
+                        forward g g (5+j+i+ra+la+1)
+                        forward g g (7+j+i+ra+la)
                         rw [List.append_cons, ← List.replicate_succ'] at g
                         simp! [*, -nth_cfg] at g
                         apply rec12 at g
-                        use! (j+1+1+ra+1+1+1+la+1+1+1+la+1), 0, (la+1)
+                        use! (9+j+ra+la+la), 0, (la+1)
                         simp
                         constructor
-                        . have h : i + (j + 1 + 1 + ra + 1 + 1 + 1 + la + 1 + 1 + 1 + la + 1) = i + j + 1 + 1 + ra + 1 + 1 + 1 + la + 1 + 1 + 1 + la + 1 := by omega
+                        . have h : i + (9+j + ra + la + la) =8+ j + i + ra + la + la + 1 := by omega
                           rw [h, g]
                           constructor
                         . apply Nat.ModEq.add_right 1
@@ -64,11 +63,11 @@ cases lb with simp_all
 | succ lb =>  simp! [*, -nth_cfg] at g
               apply lemma_8_to_9 at g
               obtain ⟨k, g⟩ := g
-              forward g g (i+j+1+1+ra+1+1+k)
+              forward g g (k+ (4+j+i+ra))
               apply lemma_11_to_12 at g
               obtain ⟨m, g⟩ := g
               use! (j+ra+k+m+5), (la+1), lb
-              have h : i+(j+ra+k+m+5) = i + j + 1 + 1 + ra + 1 + 1 + k + 1 + m := by omega
+              have h : i+(j+ra+k+m+5) =m + (5 + k + j + i + ra) := by omega
               rw [h, g]
               repeat any_goals constructor
               any_goals omega
@@ -143,11 +142,11 @@ clear g
 obtain ⟨j, la', lb', g, h₁, h₂⟩ := h
 apply lemma_12_to_13 at g
 obtain ⟨k, g⟩ := g
-forward g g (i+j+k)
-forward g g (i+j+k+1)
+forward g g (k+(i+j))
+forward g g (1+k+i+j)
 rw [← List.cons_append, ← List.replicate.eq_2] at g
 apply rec16 at g
-forward g g (i+j+k+1+1+rb.succ+1)
+forward g g (2 + k + i + j + rb.succ + 1)
 cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
 | zero => subst la'
           exfalso
@@ -160,12 +159,12 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
           rw [Nat.modEq_zero_iff_dvd]
 | succ lb' => apply lemma_17_to_20 at g
               obtain ⟨m, g⟩ := g
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m)
+              forward g g (m + (5 + k + i + j + rb))
               apply rec21 at g
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m+1+lb'+1)
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m+1+lb'+1+1)
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m+1+lb'+1+1+1)
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m+1+lb'+1+1+1+1)
+              forward g g (6 + m + k + i + j + rb + lb' + 1)
+              forward g g (8 + m + k + i + j + rb + lb')
+              forward g g (9 + m + k + i + j + rb + lb')
+              forward g g (10 + m + k + i + j + rb + lb')
               rw [← List.cons_append] at g
               rw [← List.replicate.eq_2] at g
               rw [ List.append_cons ] at g
@@ -173,8 +172,15 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
               rw [← List.append_assoc] at g
               rw [← List.replicate_add] at g
               apply rec5 at g
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m+1+lb'+1+1+1+1+1+(lb'.succ+1+la')+1)
-              forward g g (i+j+k+1+1+(rb+1)+1+1+m+1+lb'+1+1+1+1+1+(lb'.succ+1+la')+1+1)
+              forward g g (11 + m + k + i + j + rb + lb' + (lb'.succ + 1 + la') + 1)
+              forward g g (15 + m + k + i + j + rb + lb' * 2 + la')
+              rw [List.replicate_add] at g
+              rw [List.replicate_add] at g
+              simp! [*, -nth_cfg] at g
+              apply rec7 at g
+              forward g g (16 + m + k + i + j + rb + lb' * 2 + la'+ (2 + lb' + la' - 1) + 1)
+              forward g g (18 + m + k + i + j + rb + lb' * 2 + la'+ (2 + lb' + la' - 1))
+              forward g g (19 + m + k + i + j + rb + lb' * 2 + la'+ (2 + lb' + la' - 1))
               all_goals sorry
 
 -- r1 : count of 1 on the right

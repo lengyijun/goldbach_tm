@@ -1,5 +1,6 @@
 -- inspired by https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Computability/TuringMachine.lean
 import Mathlib.Computability.TuringMachine
+import Mathlib.Data.Real.Sqrt
 import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
@@ -110,6 +111,7 @@ have h : nth_cfg ($i + 1) = nth_cfg ($i + 1) := rfl
 nth_rewrite 2 [nth_cfg] at h
 simp [*, step, Option.map, machine, Turing.Tape.write, Turing.Tape.move] at h
 try simp! [*, -nth_cfg] at h
+try ring_nf at h
 clear $g1
 rename_i $g2
 ))
