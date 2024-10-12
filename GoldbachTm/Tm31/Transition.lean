@@ -7,7 +7,7 @@ nth_cfg i = some ⟨⟨12, by omega⟩, ⟨Γ.zero,
   Turing.ListBlank.mk l,
   Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero r)⟩⟩) :
 
-∃ j, nth_cfg (i + j) = some ⟨⟨13, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩
+∃ j, nth_cfg (j + i) = some ⟨⟨13, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩
 := by
 forward h h i
 
@@ -16,7 +16,7 @@ cases r1 with
           simp [h]
 | succ r1 => apply rec13 at h
              use (r1 + 2)
-             have g : i + (r1 + 2) = i + 1 + r1 + 1 := by omega
+             have g : r1 + 2+i = 1 + i + r1 + 1 := by omega
              rw [g, h]
 
 theorem lemma_8_to_9 (i : ℕ) (l1: ℕ) (l r : List Γ)
@@ -26,7 +26,7 @@ nth_cfg i = some ⟨⟨8, by omega⟩, ⟨Γ.one,
   Turing.ListBlank.mk r,
   ⟩⟩) :
 
-∃ j, nth_cfg (i + j) = some ⟨⟨9, by omega⟩, ⟨Γ.zero,
+∃ j, nth_cfg (j + i) = some ⟨⟨9, by omega⟩, ⟨Γ.zero,
     Turing.ListBlank.mk l,
     Turing.ListBlank.mk (List.replicate (l1+1) Γ.one ++ r),
     ⟩⟩
@@ -37,7 +37,7 @@ cases l1 with
           simp [h]
 | succ l1 => apply rec9 at h
              use (l1 + 2)
-             have g : (i + (l1 + 2)) = i + 1 +l1 + 1 := by omega
+             have g : l1 + 2+i = 1+i +l1 + 1 := by omega
              simp [g, h]
              rw [List.append_cons, ← List.replicate_succ']
 
@@ -47,7 +47,7 @@ nth_cfg i = some ⟨⟨11, by omega⟩, ⟨Γ.one,
   Turing.ListBlank.mk l,
   Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero r),
   ⟩⟩) :
-∃ j, nth_cfg (i + j) = some ⟨⟨12, by omega⟩, ⟨Γ.zero,
+∃ j, nth_cfg (j + i) = some ⟨⟨12, by omega⟩, ⟨Γ.zero,
     Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero l),
     Turing.ListBlank.mk r,
     ⟩⟩
@@ -59,7 +59,7 @@ cases r1 with
 | succ r1 =>  simp! [*, -nth_cfg] at h
               apply rec12 at h
               use (r1+2)
-              have g : (i + (r1 + 2)) = i + 1 +r1 + 1 := by omega
+              have g : r1 + 2+i = 1+i +r1 + 1 := by omega
               simp [g, h]
 
 theorem lemma_17_to_20 (i : ℕ) (l1: ℕ) (l r : List Γ)
@@ -68,7 +68,7 @@ nth_cfg i = some ⟨⟨17, by omega⟩, ⟨Γ.one,
   Turing.ListBlank.mk (List.replicate l1 Γ.one ++ List.cons Γ.zero l),
   Turing.ListBlank.mk r,
   ⟩⟩) :
-∃ j, nth_cfg (i + j) = some ⟨⟨20, by omega⟩, ⟨Γ.zero,
+∃ j, nth_cfg (j + i) = some ⟨⟨20, by omega⟩, ⟨Γ.zero,
     Turing.ListBlank.mk l,
     Turing.ListBlank.mk (List.replicate (l1+1) Γ.one ++ r),
     ⟩⟩
@@ -79,5 +79,5 @@ cases l1 with simp! [*, -nth_cfg] at h
           simp [h]
 | succ r1 =>  apply rec20 at h
               use (r1+2)
-              have g : (i + (r1 + 2)) = i + 1 +r1 + 1 := by omega
+              have g : r1 + 2+i = 1+i +r1 + 1 := by omega
               simp [g, h, List.replicate_succ' (r1+1)]
