@@ -208,7 +208,7 @@ theorem leap_26_halt (l1 : ℕ) : ∀ (i r1: ℕ),
 l1 + r1 ≥ 2 →
 nth_cfg i = some ⟨⟨26, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩ →
 (∀ x y, x + y = l1 + r1 + 2 /\ Nat.Prime x /\ Nat.Prime y → False) →
-∃ j, nth_cfg (j) = none
+∃ j, nth_cfg j = none
 := by
 induction l1 with
 | zero =>
