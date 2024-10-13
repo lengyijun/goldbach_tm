@@ -392,13 +392,19 @@ induction rb with intros i lb l r g hd
                 obtain ⟨j, g⟩ := g
                 rename_i induction_step
                 apply induction_step at g
-                have h : (∃ divisor ≥ lb + 1 + 2, divisor < lb + 1 + rb + 4 ∧ divisor ∣ lb + 1 + rb + 4) := by
-                  obtain ⟨divisor, h₁, h₂, h₃⟩ := hd
+                refine (?_ ∘ g) ?_
+                . intros g
+                  obtain ⟨k, g⟩ := g
+                  use (j+k)
+                  ring_nf
+                  simp [g]
+                  ring_nf
+                . obtain ⟨divisor, h₁, h₂, h₃⟩ := hd
                   use divisor
                   ring_nf at *
                   repeat any_goals apply And.intro
                   any_goals omega
-                  by_cases h : divisor = 2+lb
+                  by_cases h : divisor = 2 + lb
                   . subst divisor
                     exfalso
                     apply h
@@ -407,8 +413,3 @@ induction rb with intros i lb l r g hd
                     rw [g] at h
                     assumption
                   . omega
-                specialize g h
-                obtain ⟨k, g⟩ := g
-                use (j+k)
-                ring_nf at *
-                simp [g]
