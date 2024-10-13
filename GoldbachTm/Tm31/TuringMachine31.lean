@@ -115,3 +115,15 @@ try ring_nf at h
 clear $g1
 rename_i $g2
 ))
+
+theorem cfg6 : nth_cfg 6 = some ⟨25,
+        { head := default, left := Turing.ListBlank.mk (List.replicate 4 Γ.one), right := Turing.ListBlank.mk [] } ⟩ := by
+have h : nth_cfg 0 = init [] := by simp!
+simp [init, Turing.Tape.mk₁, Turing.Tape.mk₂, Turing.Tape.mk'] at h
+forward h h 0
+forward h h 1
+forward h h 2
+forward h h 3
+forward h h 4
+forward h h 5
+assumption

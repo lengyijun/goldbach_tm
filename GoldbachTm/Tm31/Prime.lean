@@ -413,3 +413,56 @@ induction rb with intros i lb l r g hd
                     rw [g] at h
                     assumption
                   . omega
+
+-- r1 : count of 1 on the right
+theorem lemma_not_prime (i r1: ℕ) (l r : List Γ)
+(g :
+nth_cfg i = some ⟨⟨0, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero r)⟩⟩)
+(hp : ¬ Nat.Prime (r1+1)) :
+∃ j, nth_cfg (i+j) = some ⟨⟨18, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (r1+1) Γ.one ++ List.cons Γ.zero r)⟩⟩ :=
+match r1 with
+| Nat.zero => by simp_all
+                 forward g g i
+                 forward g g (1+i)
+                 forward g g (2+i)
+                 use 3
+                 rw [← g]
+                 ring_nf
+| Nat.succ Nat.zero => by exfalso
+                          apply hp
+                          decide
+| Nat.succ (Nat.succ Nat.zero) => by exfalso
+                                     apply hp
+                                     decide
+| Nat.succ (Nat.succ (Nat.succ r1)) => by
+  forward g g i
+  forward g g (1+i)
+  forward g g (2+i)
+  forward g g (3+i)
+  forward g g (4+i)
+  forward g g (5+i)
+  forward g g (6+i)
+  forward g g (7+i)
+  forward g g (8+i)
+  forward g g (9+i)
+  forward g g (10+i)
+  forward g g (11+i)
+  forward g g (12+i)
+  forward g g (13+i)
+  apply (leap_12_dvd _ _ 0) at g
+  refine (?_ ∘ g) ?_
+  . intros h
+    obtain ⟨j, h⟩ := h
+    use (14+j)
+    ring_nf at *
+    simp [h]
+    ring_nf
+  . rw [Nat.not_prime_iff_exists_dvd_lt] at hp <;> try omega
+    obtain ⟨p, h, g, hp⟩ := hp
+    use p
+    ring_nf at *
+    repeat any_goals apply And.intro
+    any_goals omega
+    have g : 1 + r1.succ.succ.succ = 4+r1 := by omega
+    rw [g] at h
+    exact h
