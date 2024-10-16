@@ -5,6 +5,8 @@ import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
 
+namespace Tm31
+
 def Machine := Fin 31 → Γ → Option (Fin 31 × Stmt)
 
 structure Cfg where
@@ -127,3 +129,5 @@ forward h h 3
 forward h h 4
 forward h h 5
 assumption
+
+end Tm31

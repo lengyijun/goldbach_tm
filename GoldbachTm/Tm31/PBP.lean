@@ -4,6 +4,8 @@ import GoldbachTm.Tm31.Search0
 import GoldbachTm.Tm31.Prime
 import Mathlib.Data.Nat.Prime.Defs
 
+namespace Tm31
+
 -- l1 : count of 1 on the left
 -- r1 : count of 1 on the right
 theorem lemma_26 (i l1 r1: ℕ)
@@ -283,3 +285,5 @@ induction l1 with
       simp at hpp
       ring_nf
       by_cases Nat.Prime (2+l1) <;> tauto
+
+end Tm31

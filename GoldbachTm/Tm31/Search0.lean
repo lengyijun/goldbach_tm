@@ -2,6 +2,7 @@
 -- all these states' usage is to search 0
 import GoldbachTm.Tm31.TuringMachine31
 
+namespace Tm31
 
 -- left
 theorem rec5 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
@@ -197,3 +198,5 @@ induction k with intros i l r h
             rw [g, induction_step]
             . simp [List.replicate_succ' (k+1)]
             . simp! [nth_cfg, h, step, machine, Turing.Tape.write, Turing.Tape.move]
+
+end Tm31
