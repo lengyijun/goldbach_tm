@@ -5,6 +5,8 @@ import GoldbachTm.Tm31.Transition
 import Mathlib.Data.Nat.Prime.Defs
 import Mathlib.Data.Nat.ModEq
 
+namespace Tm31
+
 -- c1++, c2++
 --    l 0 [la 11] 0  [lb 11] 0 [ra 11111] 0  [(rb+1) 1] 0 r
 --                c1         ^            c2
@@ -466,3 +468,5 @@ match r1 with
     have g : 1 + r1.succ.succ.succ = 4+r1 := by omega
     rw [g] at h
     exact h
+
+end Tm31

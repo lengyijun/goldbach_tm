@@ -2,6 +2,8 @@ import GoldbachTm.Tm31.TuringMachine31
 import GoldbachTm.Tm31.PBP
 import Mathlib.Data.Nat.Prime.Defs
 
+namespace Tm31
+
 theorem lemma_25 (n : ℕ) (i : ℕ)
 (g :
 nth_cfg i = some ⟨⟨25, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4) Γ.one), Turing.ListBlank.mk []⟩⟩ )
@@ -111,3 +113,5 @@ intros h
 by_contra! g
 apply halt_lemma_rev' at g
 tauto
+
+end Tm31

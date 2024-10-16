@@ -1,6 +1,8 @@
 import GoldbachTm.Tm31.TuringMachine31
 import GoldbachTm.Tm31.Search0
 
+namespace Tm31
+
 theorem lemma_12_to_13 (i : ℕ) (r1: ℕ) (l r : List Γ)
 (h :
 nth_cfg i = some ⟨⟨12, by omega⟩, ⟨Γ.zero,
@@ -106,3 +108,5 @@ cases l1 with
              simp [h]
              rw [List.append_cons, ← List.replicate_succ']
              ring_nf
+
+end Tm31
