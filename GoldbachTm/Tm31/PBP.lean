@@ -284,6 +284,6 @@ induction l1 with
       ring_nf at hpp
       simp at hpp
       ring_nf
-      by_cases Nat.Prime (2+l1) <;> tauto
+      tauto
 
 end Tm31
