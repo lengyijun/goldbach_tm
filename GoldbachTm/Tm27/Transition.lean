@@ -11,7 +11,7 @@ nth_cfg i = some ⟨⟨10, by omega⟩, ⟨Γ.one,
 
 ∃ j, nth_cfg (j + i) = some ⟨⟨11, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩
 := by
-forward h h i
+forward h
 cases r1 with
 | zero => use 1
           simp [h]
@@ -31,7 +31,7 @@ nth_cfg i = some ⟨⟨15, by omega⟩, ⟨Γ.one,
     Turing.ListBlank.mk (List.replicate (l1+1) Γ.one ++ r),
     ⟩⟩
 := by
-forward h h i
+forward h
 cases l1 with simp! [*, -nth_cfg] at h
 | zero => use 1
           simp [h]
@@ -54,7 +54,7 @@ nth_cfg i = some ⟨⟨22, by omega⟩, ⟨Γ.one,
     Turing.ListBlank.mk (List.replicate (l1+1) Γ.one ++ r),
     ⟩⟩
 := by
-forward h h i
+forward h
 cases l1 with
 | zero => use 1
           simp [h]
