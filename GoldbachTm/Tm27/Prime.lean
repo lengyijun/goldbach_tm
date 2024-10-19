@@ -24,15 +24,15 @@ nth_cfg i = some ⟨⟨10, by omega⟩, ⟨Γ.one,
 intros g hm
 apply lemma_10_to_11 at g
 obtain ⟨j, g⟩ := g
-forward g g (j+i)
-forward g g (1+j+i)
+forward g
+forward g
 apply rec13 at g
-forward g g (2+j+i+ra+1)
+forward g
 cases lb with simp_all
-| zero => forward g g (4+j+i+ra)
+| zero => forward g
           cases la with simp_all
-          | zero => forward g g (5+j+i+ra)
-                    forward g g (6+j+i+ra)
+          | zero => forward g
+                    forward g
                     use (7+j+i+ra)
                     constructor
                     . omega
@@ -42,7 +42,7 @@ cases lb with simp_all
                       apply Nat.modEq_one
           | succ la => simp! at g
                        apply lemma8 at g
-                       forward g g (5+j+i+ra+la+2)
+                       forward g
                        rw [List.append_cons] at g
                        rw [← List.replicate_succ'] at g
                        simp! at g
@@ -59,7 +59,7 @@ cases lb with simp_all
 | succ lb =>  simp! at g
               apply lemma_6_to_7 at g
               obtain ⟨k, _,  g⟩ := g
-              forward g g k
+              forward g
               apply lemma_9_to_10 at g
               obtain ⟨n, _,  g⟩ := g
               use n
@@ -134,11 +134,11 @@ clear g
 obtain ⟨j, _, la', lb', g, h₁, h₂⟩ := h
 apply lemma_10_to_11 at g
 obtain ⟨k, g⟩ := g
-forward g g (k+j)
-forward g g (1+k+j)
+forward g
+forward g
 rw [← List.cons_append, ← List.replicate.eq_2] at g
 apply rec14 at g
-forward g g (2+k+j+rb.succ+1)
+forward g
 cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
 | zero => subst la'
           exfalso
@@ -149,12 +149,12 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
           rw [Nat.modEq_zero_iff_dvd]
 | succ lb' => apply lemma_15_to_19 at g
               obtain ⟨m, g⟩ := g
-              forward g g (m + (5 + k + j + rb))
+              forward g
               apply rec20 at g
-              forward g g (6 + m + k + j + rb + lb' + 1)
-              forward g g (8 + m + k + j + rb + lb')
-              forward g g (9 + m + k + j + rb + lb')
-              forward g g (10 + m + k + j + rb + lb')
+              forward g
+              forward g
+              forward g
+              forward g
               rw [← List.cons_append] at g
               rw [← List.replicate.eq_2] at g
               rw [ List.append_cons ] at g
@@ -162,11 +162,11 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
               rw [← List.append_assoc] at g
               rw [← List.replicate_add] at g
               apply lemma5 at g
-              forward g g (11 + m + k + j + rb + lb' + (lb'.succ + 1 + la') + 2)
+              forward g
               rw [List.replicate_add] at g
               rw [List.replicate_add] at g
               simp! [*, -nth_cfg] at g
-              forward g g  (16 + m + k + j + rb + lb' * 2 + la')
+              forward g
               rw [List.replicate_add] at g
               rw [List.replicate_add] at g
               simp! [*, -nth_cfg] at g
@@ -202,15 +202,15 @@ clear g
 obtain ⟨j, _, la', lb', g, h₁, h₂⟩ := h
 apply lemma_10_to_11 at g
 obtain ⟨k, g⟩ := g
-forward g g (k+j)
-forward g g (1+k+j)
+forward g
+forward g
 apply rec14 at g
-forward g g (2+k+j+rb+1)
+forward g
 rw [← List.cons_append] at g
 cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
 | zero => subst la'
-          forward g g (4+k+j+rb)
-          forward g g (5+k+j+rb)
+          forward g
+          forward g
           apply rec17 at g
           use (6 + k + j + rb + (1+lb)+1)
           constructor
@@ -283,58 +283,58 @@ match h : r1 with
                  apply Nat.not_prime_one p
 | Nat.succ Nat.zero => by
   subst r1
-  forward g g i
-  forward g g (1+i)
-  forward g g (2+i)
-  forward g g (3+i)
-  forward g g (4+i)
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
   use (5+i)
   simp [g]
 | Nat.succ (Nat.succ Nat.zero) => by
   subst r1
-  forward g g i
-  forward g g (1+i)
-  forward g g (2+i)
-  forward g g (3+i)
-  forward g g (4+i)
-  forward g g (5+i)
-  forward g g (6+i)
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
   use (7+i)
   simp [g]
 | Nat.succ (Nat.succ (Nat.succ r1)) => by
   clear h
-  forward g g i
-  forward g g (1+i)
-  forward g g (2+i)
-  forward g g (3+i)
-  forward g g (4+i)
-  forward g g (5+i)
-  forward g g (6+i)
-  forward g g (7+i)
-  forward g g (8+i)
-  forward g g (9+i)
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
   apply (leap_10_prime _ _ 0) at g
   have h : r1.succ.succ.succ + 1 = 0 + r1 +4 := by omega
   rw [h] at p
   specialize g p
   obtain ⟨j, _, g⟩ := g
-  forward g g j
-  forward g g (1+j)
-  forward g g (2+j)
-  forward g g (3+j)
-  forward g g (4+j)
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
   cases r1 with
   | zero => exfalso
             have g : ¬ Nat.Prime 4 := by decide
             apply g p
   | succ r1 => apply lemma_15_to_19 at g
                obtain ⟨k, g⟩ := g
-               forward g g (k+(5+j))
+               forward g
                apply rec20 at g
-               forward g g (6 + k + j + r1 + 1)
-               forward g g (8 + k + j + r1)
-               forward g g (9 + k + j + r1)
-               forward g g (10 + k + j + r1)
+               forward g
+               forward g
+               forward g
+               forward g
                rw [List.append_cons, ← List.replicate_succ'] at g
                rw [List.append_cons, ← List.replicate_succ'] at g
                rw [← List.cons_append] at g
@@ -422,9 +422,9 @@ nth_cfg i = some ⟨⟨0, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (Γ.zero :
 ∃ j>i, nth_cfg j = some ⟨⟨17, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (r1+1) Γ.one ++ List.cons Γ.zero r)⟩⟩ :=
 match r1 with
 | Nat.zero => by simp_all
-                 forward g g i
-                 forward g g (1+i)
-                 forward g g (2+i)
+                 forward g
+                 forward g
+                 forward g
                  use (3+i)
                  rw [← g]
                  simp
@@ -435,16 +435,16 @@ match r1 with
                                      apply hp
                                      decide
 | Nat.succ (Nat.succ (Nat.succ r1)) => by
-  forward g g i
-  forward g g (1+i)
-  forward g g (2+i)
-  forward g g (3+i)
-  forward g g (4+i)
-  forward g g (5+i)
-  forward g g (6+i)
-  forward g g (7+i)
-  forward g g (8+i)
-  forward g g (9+i)
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
+  forward g
   apply (leap_10_dvd _ _ 0) at g
   refine (?_ ∘ g) ?_
   . intros h

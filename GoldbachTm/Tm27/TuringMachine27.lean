@@ -7,6 +7,8 @@ import GoldbachTm.ListBlank
 
 namespace Tm27
 
+open Lean Meta Elab Tactic Std Term
+
 def Machine := Fin 27 → Γ → Option (Fin 27 × Stmt)
 
 structure Cfg where
@@ -99,66 +101,81 @@ def nth_cfg : (n : Nat) -> Option Cfg
                 | some cfg =>  step machine cfg
 
 
--- g1 = g2
-macro "forward" g1:ident g2:Lean.binderIdent i:term: tactic => `(tactic| (
-have h : nth_cfg ($i + 1) = nth_cfg ($i + 1) := rfl
-nth_rewrite 2 [nth_cfg] at h
-simp [*, step, Option.map, machine, Turing.Tape.write, Turing.Tape.move] at h
-try simp! [*, -nth_cfg] at h
-try ring_nf at h
-clear $g1
-rename_i $g2
-))
+-- https://leanprover.zulipchat.com/#narrow/channel/270676-lean4/topic/binderIdent.20vs.20Ident/near/402517388
+def toBinderIdent (i : Ident) : TSyntax ``binderIdent := Unhygienic.run <|
+  withRef i `(binderIdent| $i:ident)
+
+elab "forward" g:ident : tactic => withSynthesize <| withMainContext do
+  let some ldecl := (← getLCtx).findFromUserName? g.getId
+    | throwErrorAt g m!"Identifier {g} not found"
+  match ldecl with
+  | LocalDecl.cdecl _ _ _ (Expr.app (Expr.app _ (Expr.app _ arg)) _) _ _ =>
+      let argType ← inferType arg
+      if ← isDefEq argType (mkConst ``Nat) then
+        let arg ← Elab.Term.exprToSyntax arg
+        evalTactic (← `(tactic| (
+            have h : nth_cfg ($arg + 1) = nth_cfg ($arg + 1) := rfl
+            nth_rewrite 2 [nth_cfg] at h
+            simp [*, step, Option.map, machine, Turing.Tape.write, Turing.Tape.move] at h
+            try simp! [*, -nth_cfg] at h
+            try ring_nf at h
+            clear $g
+            rename_i $(toBinderIdent g)
+        )))
+      else
+        throwError "The first argument of {g} is not a Nat"
+  | _ => logInfo m!"please forward on nth_cfg i = some ⟨...⟩"
+
 
 theorem cfg45 : nth_cfg 45 = some ⟨26,
         { head := default, left := Turing.ListBlank.mk (List.replicate 4 Γ.one), right := Turing.ListBlank.mk [] } ⟩ := by
 have h : nth_cfg 0 = init [] := by simp!
 simp [init, Turing.Tape.mk₁, Turing.Tape.mk₂, Turing.Tape.mk'] at h
-forward h h 0
-forward h h 1
-forward h h 2
-forward h h 3
-forward h h 4
-forward h h 5
-forward h h 6
-forward h h 7
-forward h h 8
-forward h h 9
-forward h h 10
-forward h h 11
-forward h h 12
-forward h h 13
-forward h h 14
-forward h h 15
-forward h h 16
-forward h h 17
-forward h h 18
-forward h h 19
-forward h h 20
-forward h h 21
-forward h h 22
-forward h h 23
-forward h h 24
-forward h h 25
-forward h h 26
-forward h h 27
-forward h h 28
-forward h h 29
-forward h h 30
-forward h h 31
-forward h h 32
-forward h h 33
-forward h h 34
-forward h h 35
-forward h h 36
-forward h h 37
-forward h h 38
-forward h h 39
-forward h h 40
-forward h h 41
-forward h h 42
-forward h h 43
-forward h h 44
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
+forward h
 simp [h]
 constructor
 . tauto

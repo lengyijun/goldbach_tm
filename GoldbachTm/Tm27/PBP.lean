@@ -14,19 +14,19 @@ theorem lemma_18 (i l1 r1: ℕ)
 nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
 ):
 ∃ j>i, nth_cfg j = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate l1 Γ.one), Turing.ListBlank.mk (List.replicate (r1+2) Γ.one)⟩⟩ := by
-forward g g i
-forward g g (1+i)
-forward g g (2+i)
+forward g
+forward g
+forward g
 by_cases hr1 : Nat.Prime (r1+1)
 . refine (?_ ∘ (prime_21 (3+i) r1 (Γ.one :: List.replicate l1 Γ.one) [])) ?_
   . intros g
     specialize g hr1
     obtain ⟨j, _, g⟩ := g
-    forward g g j
+    forward g
     refine (?_ ∘ (lemma_22_to_24 (1+j) l1 [] (Γ.zero :: Γ.one :: (List.replicate r1 Γ.one ++ [Γ.zero])))) ?_
     . intros g
       obtain ⟨k, g⟩ := g
-      forward g g (k+(1+j))
+      forward g
       have h : ¬ Nat.Prime (l1+1) := by tauto
       apply n_prime_17 at h
       pick_goal 5
@@ -35,11 +35,11 @@ by_cases hr1 : Nat.Prime (r1+1)
         repeat any_goals apply And.intro
         all_goals rfl
       obtain ⟨m, _, h⟩ := h
-      forward h h m
-      forward h h (1+m)
-      forward h h (2+m)
+      forward h
+      forward h
+      forward h
       apply rec26 at h
-      forward h h (3+m+l1+1)
+      forward h
       use (5+m+l1)
       constructor
       . omega
@@ -75,7 +75,7 @@ by_cases hr1 : Nat.Prime (r1+1)
       use 1
       tauto
   obtain ⟨j, _, g⟩ := hr1
-  forward g g j
+  forward g
   use (1+j)
   constructor
   . omega
@@ -100,9 +100,9 @@ theorem both_prime (i l1 r1: ℕ)
 nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
 ) :
 ∃ j>i, nth_cfg j = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩ := by
-forward g g i
-forward g g (1+i)
-forward g g (2+i)
+forward g
+forward g
+forward g
 apply prime_21 at hpr
 pick_goal 5
 . rw [g]
@@ -116,22 +116,22 @@ pick_goal 5
     tauto
 clear g
 obtain ⟨j, _, g⟩ := hpr
-forward g g j
+forward g
 refine (?_ ∘ (lemma_22_to_24 (1+j) l1 []  (Γ.zero :: Γ.one :: (List.replicate r1 Γ.one ++ [Γ.zero])))) ?_
 . intros h
   obtain ⟨k, h⟩ := h
-  forward h h (k+(1+j))
+  forward h
   apply prime_21 at hpl
   pick_goal 5
   . rw [h]
     simp
     constructor <;> rfl
   obtain ⟨m, _, g⟩ := hpl
-  forward g g m
-  forward g g (1+m)
-  forward g g (2+m)
+  forward g
+  forward g
+  forward g
   apply rec23 at g
-  forward g g (3+m+l1+1)
+  forward g
   rw [← List.cons_append] at g
   rw [← List.replicate_succ] at g
   rw [← List.cons_append] at g
@@ -139,7 +139,7 @@ refine (?_ ∘ (lemma_22_to_24 (1+j) l1 []  (Γ.zero :: Γ.one :: (List.replicat
   rw [List.append_cons] at g
   rw [← List.replicate_succ'] at g
   apply rec24 at g
-  forward g g (5+m+l1+(l1+1)+1)
+  forward g
   rw [← List.cons_append] at g
   rw [← List.replicate_succ] at g
   rw [← List.cons_append] at g
@@ -153,9 +153,9 @@ refine (?_ ∘ (lemma_22_to_24 (1+j) l1 []  (Γ.zero :: Γ.one :: (List.replicat
   . clear g
     intros g
     obtain ⟨n, _, g⟩ := g
-    forward g g n
-    forward g g (1+n)
-    forward g g (2+n)
+    forward g
+    forward g
+    forward g
     rw [← List.cons_append] at g
     rw [← List.replicate_succ] at g
     apply rec26 at g
@@ -247,9 +247,9 @@ induction l1 with
   have hr1 : ∃ r2, r2 + 2 = r1 := by use (r1-2); omega
   obtain ⟨r2, _⟩ := hr1
   subst r1
-  forward g g i
-  forward g g (1+i)
-  forward g g (2+i)
+  forward g
+  forward g
+  forward g
   rw [← List.replicate_succ] at g
   rw [← List.replicate_succ] at g
   by_cases hp : Nat.Prime (r2+3)
@@ -265,19 +265,19 @@ induction l1 with
         use 1
         tauto
     obtain ⟨j, _, h⟩ := hp
-    forward h h j
-    forward h h (1+j)
-    forward h h (2+j)
-    forward h h (3+j)
-    forward h h (4+j)
-    forward h h (5+j)
-    forward h h (6+j)
-    forward h h (7+j)
-    forward h h (8+j)
-    forward h h (9+j)
-    forward h h (10+j)
-    forward h h (11+j)
-    forward h h (12+j)
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
+    forward h
     use (13+j)
   . apply n_prime_17 at hp
     pick_goal 5
@@ -291,9 +291,9 @@ induction l1 with
         use 1
         tauto
     obtain ⟨j, _, h⟩ := hp
-    forward h h j
-    forward h h (1+j)
-    forward h h (2+j)
+    forward h
+    forward h
+    forward h
     use (3+j)
 | succ l1 =>
     intros i r1 h g hpp

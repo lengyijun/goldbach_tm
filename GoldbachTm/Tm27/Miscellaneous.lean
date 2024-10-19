@@ -9,10 +9,10 @@ theorem lemma7 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨7, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
 nth_cfg (i + k + 1) = some ⟨⟨7, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (k+1) Γ.zero ++ r)⟩⟩ := by
 induction k with (intros i l r h; simp_all)
-| zero => forward h h i
+| zero => forward h
           rw [← h]
           ring_nf
-| succ k => forward h h i
+| succ k => forward h
             rename_i induction_step
             apply induction_step at h
             ring_nf at *
@@ -25,11 +25,11 @@ theorem lemma8 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨8, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
 nth_cfg (i + k + 2) = some ⟨⟨9, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate k Γ.zero ++ r)⟩⟩ := by
 induction k with (intros i l r h; simp_all)
-| zero => forward h h i
-          forward h h (1+i)
+| zero => forward h
+          forward h
           rw [← h]
           ring_nf
-| succ k => forward h h i
+| succ k => forward h
             rename_i induction_step
             apply induction_step at h
             ring_nf at *
@@ -42,11 +42,11 @@ theorem lemma5 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨5, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
 nth_cfg (i + k + 2) = some ⟨⟨4, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate k Γ.zero ++ r)⟩⟩ := by
 induction k with (intros i l r h; simp_all)
-| zero => forward h h i
-          forward h h (1+i)
+| zero => forward h
+          forward h
           rw [← h]
           ring_nf
-| succ k => forward h h i
+| succ k => forward h
             rename_i induction_step
             apply induction_step at h
             ring_nf at *
@@ -59,7 +59,7 @@ theorem lemma10 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨10, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate k Γ.zero ++ List.cons Γ.one r) ⟩⟩ →
 nth_cfg (i + k + 1) = some ⟨⟨10, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (k+1) Γ.one ++ l), Turing.ListBlank.mk r⟩⟩ := by
 induction k with (intros i l r h; simp_all)
-| zero => forward h h i
+| zero => forward h
           rw [← h]
           ring_nf
 | succ k => rename_i induction_step
@@ -80,7 +80,7 @@ nth_cfg i = some ⟨⟨6, by omega⟩, ⟨Γ.one,
     Turing.ListBlank.mk (List.replicate (l1+1) Γ.zero ++ r),
     ⟩⟩
 := by
-forward h h i
+forward h
 cases l1 with
 | zero => use (1+i)
           simp [h]
@@ -103,7 +103,7 @@ nth_cfg i = some ⟨⟨9, by omega⟩, ⟨Γ.zero,
     Turing.ListBlank.mk r,
     ⟩⟩
 := by
-forward h h i
+forward h
 cases r1 with simp_all
 | zero => use (1+i)
           simp [h]

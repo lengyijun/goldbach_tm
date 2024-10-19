@@ -12,7 +12,7 @@ nth_cfg i = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.re
 ( hpp : goldbach (n+4)) :
 ∃ j>i, nth_cfg j = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4+2) Γ.one), Turing.ListBlank.mk []⟩⟩
 := by
-forward g g i
+forward g
 repeat rw [← List.replicate_succ] at g
 apply (leap_18 _ _ 0) at g
 any_goals omega
@@ -72,11 +72,11 @@ goldbach (2*n + 4)
 induction' n using Nat.strongRecOn with n IH
 apply never_halt_step at IH
 obtain ⟨j, g⟩ := IH
-by_contra! h
-forward g g j
+forward g
 repeat rw [← List.replicate_succ] at g
 apply (leap_18_halt _ _ 0) at g
 any_goals omega
+by_contra! h
 refine (?_ ∘ g) ?_
 . intros h
   obtain ⟨k, h⟩ := h
@@ -104,10 +104,7 @@ apply propagating_induction (fun i => nth_cfg i ≠ none) (fun i n => nth_cfg i 
     intro k
     induction k with
     | zero => tauto
-    | succ k => rename_i h₁
-                forward h₁ h₁ (j+k)
-                rw [← h₁]
-                ring_nf
+    | succ k => simp! [← add_assoc, *]
   specialize h₂ (i-j)
   have h₃ : j + (i-j) = i := by omega
   rw [h₃] at h₂
