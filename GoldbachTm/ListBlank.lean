@@ -19,10 +19,7 @@ theorem to_list_rev_rfl (l : List Γ) : to_list_rev (Turing.ListBlank.mk l) = l.
 theorem to_list_rev_one (l : Turing.ListBlank Γ) : to_list_rev (l.cons Γ.one) = (to_list_rev l) ++ [Γ.one] := by
   refine l.inductionOn fun l ↦ ?_
   suffices to_list_rev ((Turing.ListBlank.mk l).cons Γ.one) = (to_list_rev (Turing.ListBlank.mk l)) ++ [Γ.one] by exact this
-  rw [Turing.ListBlank.cons_mk, to_list_rev_rfl, to_list_rev_rfl]
-  simp
-  rw [List.dropWhile_append]
-  simp
+  simp [Turing.ListBlank.cons_mk, to_list_rev_rfl, to_list_rev_rfl, List.dropWhile_append]
 
 def count1 (l : Turing.ListBlank Γ) : Nat :=
 match head_h : l.head with
@@ -31,6 +28,6 @@ match head_h : l.head with
   let h : to_list_rev l = (to_list_rev l.tail) ++ [Γ.one] := by
     rw [← Turing.ListBlank.cons_head_tail l, ← to_list_rev_one, head_h]
     simp
-  let _termination_proof : (l |> to_list_rev |> List.length) > (l.tail |> to_list_rev |> List.length):= by rw [h]; simp
+  let _termination_proof : (l |> to_list_rev |> List.length) > (l.tail |> to_list_rev |> List.length):= by simp [h]
   1 + count1 l.tail
 termination_by (l |> to_list_rev |> List.length)
