@@ -17,7 +17,7 @@ structure Stmt where
   move : Turing.Dir
   write : Γ
 
-def goldbach (n : ℕ) := ∃ (x y: ℕ), x + y = n /\ Nat.Prime x /\ Nat.Prime y
+def Goldbach (n : ℕ) := ∃ (x y: ℕ), x + y = n /\ Nat.Prime x /\ Nat.Prime y
 
 def goldbach_search_aux (n : ℕ) : ℕ → Option ℕ
 | k =>
@@ -76,7 +76,7 @@ induction i with intros k _ h
     apply induction_step (k+1) (by omega) h
 
 
-theorem goldbach_def_search (n : ℕ) : goldbach n ↔ goldbach_search n ≠ none :=
+theorem goldbach_def_search (n : ℕ) : Goldbach n ↔ goldbach_search n ≠ none :=
 ⟨by intros h
     obtain ⟨x, y, _, h, _⟩ := h
     apply goldbach_search_aux_exists _ _ x
@@ -98,10 +98,10 @@ by intros h
 ⟩
 
 
-instance decidableGoldbach (n : ℕ) : Decidable (goldbach n) :=
+instance decidableGoldbach (n : ℕ) : Decidable (Goldbach n) :=
 decidable_of_iff' _ (goldbach_def_search n)
 
-instance : DecidablePred goldbach := decidableGoldbach
+instance : DecidablePred Goldbach := decidableGoldbach
 
 theorem unlimitedQ (Q : ℕ → Prop)
                (base : ℕ) (hbase : Q base)

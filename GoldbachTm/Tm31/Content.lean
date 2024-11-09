@@ -7,7 +7,7 @@ namespace Tm31
 theorem lemma_25 (n : ℕ) (i : ℕ)
 (g :
 nth_cfg i = some ⟨⟨25, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4) Γ.one), Turing.ListBlank.mk []⟩⟩ )
-( hpp : goldbach (n+4)) :
+( hpp : Goldbach (n+4)) :
 ∃ j>0, nth_cfg (i+j) = some ⟨⟨25, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4+2) Γ.one), Turing.ListBlank.mk []⟩⟩
 := by
 forward g g i
@@ -35,7 +35,7 @@ refine (?_ ∘ g) ?_
     omega
 
 lemma never_halt_step (n : ℕ) :
-(∀ i < n, goldbach (2*i+4)) ->
+(∀ i < n, Goldbach (2*i+4)) ->
 ∃ j, nth_cfg j = some ⟨⟨25, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩
  := by
 induction n with
@@ -61,7 +61,7 @@ refine (?_ ∘ induction_step) ?_
   apply h i (by omega)
 
 theorem never_halt (never_none : ∀ i, nth_cfg i ≠ none) (n : ℕ):
-goldbach (2*n + 4)
+Goldbach (2*n + 4)
 := by
 induction' n using Nat.strongRecOn with n IH
 apply never_halt_step at IH
@@ -81,7 +81,7 @@ refine (?_ ∘ g) ?_
   tauto
 
 
-theorem halt_lemma_rev' (h : ∀ n, goldbach (2*n+4)) :
+theorem halt_lemma_rev' (h : ∀ n, Goldbach (2*n+4)) :
 ∀ i, nth_cfg i ≠ none := by
 apply propagating_induction (fun i => nth_cfg i ≠ none) (fun i n => nth_cfg i = some ⟨⟨25, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩) 6
 . simp [cfg6]; tauto
@@ -107,7 +107,7 @@ apply propagating_induction (fun i => nth_cfg i ≠ none) (fun i n => nth_cfg i 
   tauto
 
 theorem halt_lemma_rev :
-(∃ i, nth_cfg i = none) → (∃ n, ¬ goldbach (2*n+4))
+(∃ i, nth_cfg i = none) → (∃ n, ¬ Goldbach (2*n+4))
 := by
 intros h
 by_contra! g
