@@ -94,7 +94,7 @@ induction rb with intros i la lb ra l r g hm
           . omega
           . use! la, lb
             simp [g, hm]
-| succ rb =>  rename_i induction_step
+| succ rb induction_step =>
               apply step_10_pointer at g
               specialize g hm
               obtain ⟨j, _, la', lb', g, h₁, h₂⟩ := g
@@ -249,28 +249,28 @@ induction rb with intros i lb l r g p
           constructor
           . omega
           . simp! [g]
-| succ rb => apply step_10_n_dvd at g
-             by_cases h : (lb + 2 ∣ rb + 3)
-             . have g : (lb + 2 ∣ lb + 2) := Nat.dvd_refl _
-               have g := Nat.dvd_add g h
-               ring_nf at p g
-               rw [Nat.Prime.dvd_iff_eq] at g
-               any_goals omega
-               all_goals assumption
-             . specialize g h
-               rename_i induction_step
-               obtain ⟨j, _, g⟩ := g
-               apply induction_step at g
-               ring_nf at g p
-               specialize g p
-               obtain ⟨k, _, g⟩ := g
-               use k
-               constructor
-               . omega
-               . simp! [g]
-                 rw [← List.cons_append]
-                 rw [← List.replicate_succ]
-                 ring_nf
+| succ rb induction_step =>
+            apply step_10_n_dvd at g
+            by_cases h : (lb + 2 ∣ rb + 3)
+            . have g : (lb + 2 ∣ lb + 2) := Nat.dvd_refl _
+              have g := Nat.dvd_add g h
+              ring_nf at p g
+              rw [Nat.Prime.dvd_iff_eq] at g
+              any_goals omega
+              all_goals assumption
+            . specialize g h
+              obtain ⟨j, _, g⟩ := g
+              apply induction_step at g
+              ring_nf at g p
+              specialize g p
+              obtain ⟨k, _, g⟩ := g
+              use k
+              constructor
+              . omega
+              . simp! [g]
+                rw [← List.cons_append]
+                rw [← List.replicate_succ]
+                ring_nf
 
 theorem prime_21 (i r1: ℕ) (l r : List Γ)
 (g :
@@ -384,12 +384,12 @@ induction rb with intros i lb l r g hd
               rw [h] at g
               apply Nat.eq_one_of_dvd_one at g
               omega
-| succ rb =>  by_cases h : (lb+2) ∣ rb+3
+| succ rb induction_step =>
+              by_cases h : (lb+2) ∣ rb+3
               . apply step_10_dvd at g
                 apply g h
               . apply step_10_n_dvd at g
                 specialize g h
-                rename_i induction_step
                 obtain ⟨j, _, g⟩ := g
                 apply induction_step at g
                 refine (?_ ∘ g) ?_

@@ -12,8 +12,8 @@ induction k with (intros i l r h; simp_all)
 | zero => forward h
           rw [← h]
           ring_nf
-| succ k => forward h
-            rename_i induction_step
+| succ k induction_step =>
+            forward h
             apply induction_step at h
             ring_nf at *
             simp! [h]
@@ -29,8 +29,8 @@ induction k with (intros i l r h; simp_all)
           forward h
           rw [← h]
           ring_nf
-| succ k => forward h
-            rename_i induction_step
+| succ k induction_step =>
+            forward h
             apply induction_step at h
             ring_nf at *
             simp! [h]
@@ -46,8 +46,8 @@ induction k with (intros i l r h; simp_all)
           forward h
           rw [← h]
           ring_nf
-| succ k => forward h
-            rename_i induction_step
+| succ k induction_step =>
+            forward h
             apply induction_step at h
             ring_nf at *
             simp! [h]
@@ -62,7 +62,7 @@ induction k with (intros i l r h; simp_all)
 | zero => forward h
           rw [← h]
           ring_nf
-| succ k => rename_i induction_step
+| succ k induction_step =>
             specialize induction_step (i+1) (List.cons Γ.one l) r
             have g : i + (k+1) +1 = i + 1 + k + 1 := by omega
             rw [g, induction_step]

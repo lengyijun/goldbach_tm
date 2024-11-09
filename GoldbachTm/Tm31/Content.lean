@@ -44,8 +44,7 @@ intros _
 use 6
 simp [cfg6]
 tauto
-| succ n =>
-rename_i induction_step
+| succ n induction_step =>
 intros h
 refine (?_ ∘ induction_step) ?_
 . intros g
@@ -96,10 +95,9 @@ apply propagating_induction (fun i => nth_cfg i ≠ none) (fun i n => nth_cfg i 
     intro k
     induction k with
     | zero => tauto
-    | succ k => rename_i h₁
-                forward h₁ h₁ (j+k)
-                rw [← h₁]
-                ring_nf
+    | succ k h₁ =>  forward h₁ h₁ (j+k)
+                    rw [← h₁]
+                    ring_nf
   specialize h₂ (i-j)
   have h₃ : j + (i-j) = i := by omega
   rw [h₃] at h₂

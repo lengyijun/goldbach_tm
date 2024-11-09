@@ -194,8 +194,7 @@ nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.rep
 := by
 induction l1 with
 | zero => omega
-| succ l1 =>
-  rename_i induction_step
+| succ l1 induction_step =>
   intros i r1 h _ g hpp
   by_cases hp : ¬ Nat.Prime (l1+2) \/ ¬ Nat.Prime (r1+1)
   . -- induction step
@@ -295,11 +294,10 @@ induction l1 with
     forward h
     forward h
     use (3+j)
-| succ l1 =>
+| succ l1 induction_step =>
     intros i r1 h g hpp
     apply lemma_18 at g
-    . rename_i induction_step
-      obtain ⟨j, _, g⟩ := g
+    . obtain ⟨j, _, g⟩ := g
       apply induction_step at g
       any_goals omega
       apply g

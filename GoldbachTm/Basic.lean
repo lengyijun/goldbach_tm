@@ -40,14 +40,14 @@ induction i with intros k _ _ _ hp2
           rw [h] at hp2
           apply Nat.Prime.ne_zero at hp2
           omega
-| succ i => unfold goldbach_search_aux
+| succ i induction_step =>
+            unfold goldbach_search_aux
             simp
             constructor
             . omega
             . split
               . tauto
-              . rename_i induction_step _ _ _ _
-                apply induction_step (k+1) (by omega)
+              . apply induction_step (k+1) (by omega)
                 any_goals assumption
                 by_cases x = k
                 . subst x
@@ -64,7 +64,7 @@ induction i with intros k _ h
   unfold goldbach_search_aux at h
   simp at h
   omega
-| succ i =>
+| succ i induction_step =>
   unfold goldbach_search_aux at h
   simp at h
   obtain ⟨_, h⟩ := h
@@ -72,8 +72,7 @@ induction i with intros k _ h
   . simp at h
     subst p
     tauto
-  . rename_i induction_step _ _ _
-    apply induction_step (k+1) (by omega) h
+  . apply induction_step (k+1) (by omega) h
 
 
 theorem goldbach_def_search (n : ℕ) : Goldbach n ↔ goldbach_search n ≠ none :=
@@ -116,8 +115,8 @@ induction n with
                          constructor
                          . omega
                          . tauto
-| succ n => rename_i h
-            obtain ⟨m, _, _⟩ := h
+| succ n induction_step =>
+            obtain ⟨m, _, _⟩ := induction_step
             by_cases hm: m = n + 1
             . subst m
               apply hq

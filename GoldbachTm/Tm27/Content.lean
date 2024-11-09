@@ -48,8 +48,7 @@ intros _
 use 45
 simp [cfg45]
 tauto
-| succ n =>
-rename_i induction_step
+| succ n induction_step =>
 intros h
 refine (?_ ∘ induction_step) ?_
 . intros g
