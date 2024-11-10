@@ -35,9 +35,7 @@ by_cases hr1 : Nat.Prime (r1+1)
         repeat any_goals apply And.intro
         all_goals rfl
       obtain ⟨m, _, h⟩ := h
-      forward h
-      forward h
-      forward h
+      iterate 3 forward h
       apply rec26 at h
       forward h
       use (5+m+l1)
@@ -264,19 +262,7 @@ induction l1 with
         use 1
         tauto
     obtain ⟨j, _, h⟩ := hp
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
-    forward h
+    iterate 13 forward h
     use (13+j)
   . apply n_prime_17 at hp
     pick_goal 5
@@ -290,9 +276,7 @@ induction l1 with
         use 1
         tauto
     obtain ⟨j, _, h⟩ := hp
-    forward h
-    forward h
-    forward h
+    iterate 3 forward h
     use (3+j)
 | succ l1 induction_step =>
     intros i r1 h g hpp

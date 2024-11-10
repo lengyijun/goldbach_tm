@@ -131,51 +131,7 @@ theorem cfg45 : nth_cfg 45 = some ⟨26,
         { head := default, left := Turing.ListBlank.mk (List.replicate 4 Γ.one), right := Turing.ListBlank.mk [] } ⟩ := by
 have h : nth_cfg 0 = init [] := by simp!
 simp [init, Turing.Tape.mk₁, Turing.Tape.mk₂, Turing.Tape.mk'] at h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
-forward h
+iterate 45 forward h
 simp [h]
 constructor
 . tauto

@@ -25,8 +25,7 @@ theorem lemma8 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨8, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
 nth_cfg (i + k + 2) = some ⟨⟨9, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate k Γ.zero ++ r)⟩⟩ := by
 induction k with (intros i l r h; simp_all)
-| zero => forward h
-          forward h
+| zero => iterate 2 forward h
           rw [← h]
           ring_nf
 | succ k induction_step =>
@@ -42,8 +41,7 @@ theorem lemma5 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨5, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
 nth_cfg (i + k + 2) = some ⟨⟨4, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate k Γ.zero ++ r)⟩⟩ := by
 induction k with (intros i l r h; simp_all)
-| zero => forward h
-          forward h
+| zero => iterate 2 forward h
           rw [← h]
           ring_nf
 | succ k induction_step =>
