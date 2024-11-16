@@ -1,8 +1,8 @@
-import GoldbachTm.Tm27.TuringMachine27
-import GoldbachTm.Tm27.Transition
-import GoldbachTm.Tm27.Miscellaneous
+import GoldbachTm.Tm26.TuringMachine26
+import GoldbachTm.Tm26.Transition
+import GoldbachTm.Tm26.Miscellaneous
 
-namespace Tm27
+namespace Tm26
 
 -- c1++, c2++
 --    l 0 [la 11] 0  [lb 11] 0 [ra 11111] 0  [(rb+1) 1] 0 r
@@ -462,4 +462,4 @@ match r1 with
     rw [g] at h
     exact h
 
-end Tm27
+end Tm26

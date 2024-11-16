@@ -17,5 +17,5 @@ lean_lib «GoldbachTm» where
 lean_exe «sim31» where
   root := `GoldbachTm.Tm31.Sim31
 
-lean_exe «sim27» where
-  root := `GoldbachTm.Tm27.Sim27
+lean_exe «sim26» where
+  root := `GoldbachTm.Tm26.Sim26

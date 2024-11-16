@@ -1,8 +1,8 @@
 -- theorem of recursive states
 -- all these states' usage is to search 0
-import GoldbachTm.Tm27.TuringMachine27
+import GoldbachTm.Tm26.TuringMachine26
 
-namespace Tm27
+namespace Tm26
 
 -- left
 theorem rec13 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
@@ -114,9 +114,9 @@ induction k with intros i l r h
             . simp [List.replicate_succ' (k+1)]
             . simp! [nth_cfg, h, step, machine, Turing.Tape.write, Turing.Tape.move]
 
-theorem rec26 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
-nth_cfg i = some ⟨⟨26, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero r) ⟩⟩ →
-nth_cfg (i + k + 1) = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (k+1) Γ.one ++ l), Turing.ListBlank.mk r⟩⟩ := by
+theorem rec22 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
+nth_cfg i = some ⟨⟨22, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero r) ⟩⟩ →
+nth_cfg (i + k + 1) = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (k+1) Γ.one ++ l), Turing.ListBlank.mk r⟩⟩ := by
 induction k with intros i l r h
 | zero => simp [nth_cfg, h, step, machine, Turing.Tape.write, Turing.Tape.move]
 | succ k induction_step =>
@@ -126,4 +126,4 @@ induction k with intros i l r h
             . simp [List.replicate_succ' (k+1)]
             . simp! [nth_cfg, h, step, machine, Turing.Tape.write, Turing.Tape.move]
 
-end Tm27
+end Tm26

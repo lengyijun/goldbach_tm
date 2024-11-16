@@ -5,15 +5,15 @@ import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
 
-namespace Tm27
+namespace Tm26
 
 open Lean Meta Elab Tactic Std Term
 
-def Machine := Fin 27 → Γ → Option (Fin 27 × Stmt)
+def Machine := Fin 26 → Γ → Option (Fin 26 × Stmt)
 
 structure Cfg where
   /-- The current machine state. -/
-  q : Fin 27
+  q : Fin 26
   /-- The current state of the tape: current symbol, left and right parts. -/
   Tape : Turing.Tape Γ
 
@@ -39,32 +39,32 @@ def step (M : Machine) : Cfg → Option Cfg :=
 
 def machine : Machine
 | ⟨ 0, _⟩, Γ.zero => some ⟨⟨23, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨ 0, _⟩, Γ.one  => some ⟨⟨01, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
+| ⟨ 0, _⟩, Γ.one  => some ⟨⟨ 1, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨ 1, _⟩, Γ.zero => some ⟨⟨17, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 1, _⟩, Γ.one  => some ⟨⟨02, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
+| ⟨ 1, _⟩, Γ.one  => some ⟨⟨ 2, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨ 2, _⟩, Γ.zero => some ⟨⟨21, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 2, _⟩, Γ.one  => some ⟨⟨03, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
+| ⟨ 2, _⟩, Γ.one  => some ⟨⟨ 3, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨ 3, _⟩, Γ.zero => some ⟨⟨21, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 3, _⟩, Γ.one  => some ⟨⟨04, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 4, _⟩, Γ.zero => some ⟨⟨09, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨ 4, _⟩, Γ.one  => some ⟨⟨05, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
-| ⟨ 5, _⟩, Γ.zero => some ⟨⟨04, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
-| ⟨ 5, _⟩, Γ.one  => some ⟨⟨05, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 6, _⟩, Γ.zero => some ⟨⟨08, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 6, _⟩, Γ.one  => some ⟨⟨07, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 7, _⟩, Γ.zero => some ⟨⟨09, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨ 7, _⟩, Γ.one  => some ⟨⟨07, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨ 8, _⟩, Γ.zero => some ⟨⟨09, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
-| ⟨ 8, _⟩, Γ.one  => some ⟨⟨08, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨ 3, _⟩, Γ.one  => some ⟨⟨ 4, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨ 4, _⟩, Γ.zero => some ⟨⟨ 9, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
+| ⟨ 4, _⟩, Γ.one  => some ⟨⟨ 5, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
+| ⟨ 5, _⟩, Γ.zero => some ⟨⟨ 4, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
+| ⟨ 5, _⟩, Γ.one  => some ⟨⟨ 5, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨ 6, _⟩, Γ.zero => some ⟨⟨ 8, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨ 6, _⟩, Γ.one  => some ⟨⟨ 7, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨ 7, _⟩, Γ.zero => some ⟨⟨ 9, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
+| ⟨ 7, _⟩, Γ.one  => some ⟨⟨ 7, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨ 8, _⟩, Γ.zero => some ⟨⟨ 9, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
+| ⟨ 8, _⟩, Γ.one  => some ⟨⟨ 8, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
 | ⟨ 9, _⟩, Γ.zero => some ⟨⟨10, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
-| ⟨ 9, _⟩, Γ.one  => some ⟨⟨26, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
+| ⟨ 9, _⟩, Γ.one  => some ⟨⟨22, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
 | ⟨10, _⟩, Γ.zero => some ⟨⟨10, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨10, _⟩, Γ.one  => some ⟨⟨11, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
 | ⟨11, _⟩, Γ.zero => some ⟨⟨12, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨11, _⟩, Γ.one  => some ⟨⟨11, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨12, _⟩, Γ.zero => some ⟨⟨14, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
 | ⟨12, _⟩, Γ.one  => some ⟨⟨13, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
-| ⟨13, _⟩, Γ.zero => some ⟨⟨06, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
+| ⟨13, _⟩, Γ.zero => some ⟨⟨ 6, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨13, _⟩, Γ.one  => some ⟨⟨13, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨14, _⟩, Γ.zero => some ⟨⟨15, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
 | ⟨14, _⟩, Γ.one  => some ⟨⟨14, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
@@ -74,25 +74,23 @@ def machine : Machine
 | ⟨16, _⟩, Γ.one  => none -- unreachable
 | ⟨17, _⟩, Γ.zero => some ⟨⟨18, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨17, _⟩, Γ.one  => some ⟨⟨17, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
-| ⟨18, _⟩, Γ.zero => some ⟨⟨09, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
+| ⟨18, _⟩, Γ.zero => some ⟨⟨ 9, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
 | ⟨18, _⟩, Γ.one  => some ⟨⟨25, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
 | ⟨19, _⟩, Γ.zero => some ⟨⟨20, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨19, _⟩, Γ.one  => some ⟨⟨19, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
-| ⟨20, _⟩, Γ.zero => some ⟨⟨02, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
+| ⟨20, _⟩, Γ.zero => some ⟨⟨ 2, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨20, _⟩, Γ.one  => some ⟨⟨20, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨21, _⟩, Γ.zero => some ⟨⟨22, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
+| ⟨21, _⟩, Γ.zero => some ⟨⟨24, by omega⟩, ⟨Turing.Dir.left, Γ.zero⟩⟩
 | ⟨21, _⟩, Γ.one  => some ⟨⟨21, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
-| ⟨22, _⟩, Γ.zero => some ⟨⟨00, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
-| ⟨22, _⟩, Γ.one  => some ⟨⟨24, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
+| ⟨22, _⟩, Γ.zero => some ⟨⟨18, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
+| ⟨22, _⟩, Γ.one  => some ⟨⟨22, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
 | ⟨23, _⟩, Γ.zero => some ⟨⟨24, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨23, _⟩, Γ.one  => some ⟨⟨23, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨24, _⟩, Γ.zero => some ⟨⟨00, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
+| ⟨24, _⟩, Γ.zero => some ⟨⟨ 0, by omega⟩, ⟨Turing.Dir.right, Γ.zero⟩⟩
 | ⟨24, _⟩, Γ.one  => some ⟨⟨24, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
 | ⟨25, _⟩, Γ.zero => none
 | ⟨25, _⟩, Γ.one  => some ⟨⟨24, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨26, _⟩, Γ.zero => some ⟨⟨18, by omega⟩, ⟨Turing.Dir.left, Γ.one⟩⟩
-| ⟨26, _⟩, Γ.one  => some ⟨⟨26, by omega⟩, ⟨Turing.Dir.right, Γ.one⟩⟩
-| ⟨_+27, _⟩, _ => by omega -- https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/Pattern.20matching.20on.20Fin.20isn't.20exhaustive.20for.20large.20matches/near/428048252
+| ⟨_+26, _⟩, _ => by omega -- https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/Pattern.20matching.20on.20Fin.20isn't.20exhaustive.20for.20large.20matches/near/428048252
 
 def nth_cfg : (n : Nat) -> Option Cfg
 | 0 => init []
@@ -127,7 +125,7 @@ elab "forward" g:ident : tactic => withSynthesize <| withMainContext do
   | _ => logInfo m!"please forward on nth_cfg i = some ⟨...⟩"
 
 
-theorem cfg45 : nth_cfg 45 = some ⟨26,
+theorem cfg45 : nth_cfg 45 = some ⟨22,
         { head := default, left := Turing.ListBlank.mk (List.replicate 4 Γ.one), right := Turing.ListBlank.mk [] } ⟩ := by
 have h : nth_cfg 0 = init [] := by simp!
 simp [init, Turing.Tape.mk₁, Turing.Tape.mk₂, Turing.Tape.mk'] at h
@@ -142,4 +140,4 @@ constructor
   tauto
 
 
-end Tm27
+end Tm26

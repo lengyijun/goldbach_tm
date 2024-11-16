@@ -1,16 +1,16 @@
-import GoldbachTm.Tm27.TuringMachine27
-import GoldbachTm.Tm27.Search0
-import GoldbachTm.Tm27.PBP
+import GoldbachTm.Tm26.TuringMachine26
+import GoldbachTm.Tm26.Search0
+import GoldbachTm.Tm26.PBP
 import Mathlib.Data.Nat.Prime.Defs
 
-namespace Tm27
+namespace Tm26
 
-theorem lemma_26 (n : ℕ) (i : ℕ)
+theorem lemma_22 (n : ℕ) (i : ℕ)
 (even_n : Even (n+2))
 (g :
-nth_cfg i = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4) Γ.one), Turing.ListBlank.mk []⟩⟩ )
+nth_cfg i = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4) Γ.one), Turing.ListBlank.mk []⟩⟩ )
 ( hpp : Goldbach (n+4)) :
-∃ j>i, nth_cfg j = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4+2) Γ.one), Turing.ListBlank.mk []⟩⟩
+∃ j>i, nth_cfg j = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (n+4+2) Γ.one), Turing.ListBlank.mk []⟩⟩
 := by
 forward g
 repeat rw [← List.replicate_succ] at g
@@ -40,7 +40,7 @@ refine (?_ ∘ g) ?_
 
 lemma never_halt_step (n : ℕ) :
 (∀ i < n, Goldbach (2*i+4)) ->
-∃ j, nth_cfg j = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩
+∃ j, nth_cfg j = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩
  := by
 induction n with
 | zero =>
@@ -54,7 +54,7 @@ refine (?_ ∘ induction_step) ?_
 . intros g
   obtain ⟨j, g⟩ := g
   specialize h n (by omega)
-  apply lemma_26 at g
+  apply lemma_22 at g
   . specialize g h
     obtain ⟨k, g⟩ := g
     use k
@@ -88,10 +88,10 @@ refine (?_ ∘ g) ?_
 
 theorem halt_lemma_rev' (h : ∀ n, Goldbach (2*n+4)) :
 ∀ i, nth_cfg i ≠ none := by
-apply propagating_induction (fun i => nth_cfg i ≠ none) (fun i n => nth_cfg i = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩) 45
+apply propagating_induction (fun i => nth_cfg i ≠ none) (fun i n => nth_cfg i = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩) 45
 . simp [cfg45]; tauto
 . intros i n g
-  apply (lemma_26 (2*n)) at g
+  apply (lemma_22 (2*n)) at g
   . specialize g (h _)
     obtain ⟨j, g⟩ := g
     use j
@@ -135,4 +135,4 @@ by_contra! g
 apply halt_lemma_rev' at g
 tauto
 
-end Tm27
+end Tm26

@@ -1,9 +1,9 @@
 -- some lemmas tm31 doesn't contain
 
-import GoldbachTm.Tm27.TuringMachine27
-import GoldbachTm.Tm27.Transition
+import GoldbachTm.Tm26.TuringMachine26
+import GoldbachTm.Tm26.Transition
 
-namespace Tm27
+namespace Tm26
 
 theorem lemma7 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨7, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
@@ -111,4 +111,4 @@ cases r1 with simp_all
              simp [h]
              omega
 
-end Tm27
+end Tm26

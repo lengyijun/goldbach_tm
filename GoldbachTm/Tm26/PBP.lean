@@ -1,10 +1,10 @@
 -- PDP is short for "prime board prime"
-import GoldbachTm.Tm27.TuringMachine27
-import GoldbachTm.Tm27.Search0
-import GoldbachTm.Tm27.Prime
+import GoldbachTm.Tm26.TuringMachine26
+import GoldbachTm.Tm26.Search0
+import GoldbachTm.Tm26.Prime
 import Mathlib.Data.Nat.Prime.Defs
 
-namespace Tm27
+namespace Tm26
 
 -- l1 : count of 1 on the left
 -- r1 : count of 1 on the right
@@ -23,39 +23,39 @@ by_cases hr1 : Nat.Prime (r1+1)
     specialize g hr1
     obtain ⟨j, _, g⟩ := g
     forward g
-    refine (?_ ∘ (lemma_22_to_24 (1+j) l1 [] (Γ.zero :: Γ.one :: (List.replicate r1 Γ.one ++ [Γ.zero])))) ?_
-    . intros g
-      obtain ⟨k, g⟩ := g
-      forward g
-      have h : ¬ Nat.Prime (l1+1) := by tauto
-      apply n_prime_17 at h
-      pick_goal 5
-      . rw [g]
-        simp
-        repeat any_goals apply And.intro
-        all_goals rfl
-      obtain ⟨m, _, h⟩ := h
-      iterate 3 forward h
-      apply rec26 at h
-      forward h
-      use (5+m+l1)
-      constructor
-      . omega
-      . simp [h]
-        repeat any_goals apply And.intro
-        all_goals simp! [Turing.ListBlank.mk]
-        all_goals rw [Quotient.eq'']
-        all_goals right
-        . use 2
-          tauto
-        . use 1
-          simp
-          tauto
-    . simp! [g, Turing.ListBlank.mk]
+    have h : Turing.ListBlank.mk (List.replicate l1 Γ.one) = Turing.ListBlank.mk (List.replicate l1 Γ.one ++ [Γ.zero]) := by
+      simp! [g, Turing.ListBlank.mk]
       rw [Quotient.eq'']
       left
       use 1
       tauto
+    rw [h] at g
+    apply (rec24 l1 (1+j) []) at g
+    forward g
+    have h : ¬ Nat.Prime (l1+1) := by tauto
+    apply n_prime_17 at h
+    pick_goal 5
+    . rw [g]
+      simp
+      repeat any_goals apply And.intro
+      all_goals rfl
+    obtain ⟨m, _, h⟩ := h
+    iterate 3 forward h
+    apply rec22 at h
+    forward h
+    use (5+m+l1)
+    constructor
+    . omega
+    . simp [h]
+      repeat any_goals apply And.intro
+      all_goals simp! [Turing.ListBlank.mk]
+      all_goals rw [Quotient.eq'']
+      all_goals right
+      . use 2
+        tauto
+      . use 1
+        simp
+        tauto
   . simp! [g, Turing.ListBlank.mk]
     rw [Quotient.eq'']
     left
@@ -97,7 +97,7 @@ theorem both_prime (i l1 r1: ℕ)
 (g :
 nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
 ) :
-∃ j>i, nth_cfg j = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩ := by
+∃ j>i, nth_cfg j = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩ := by
 forward g
 forward g
 forward g
@@ -115,72 +115,71 @@ pick_goal 5
 clear g
 obtain ⟨j, _, g⟩ := hpr
 forward g
-refine (?_ ∘ (lemma_22_to_24 (1+j) l1 []  (Γ.zero :: Γ.one :: (List.replicate r1 Γ.one ++ [Γ.zero])))) ?_
-. intros h
-  obtain ⟨k, h⟩ := h
-  forward h
-  apply prime_21 at hpl
-  pick_goal 5
-  . rw [h]
-    simp
-    constructor <;> rfl
-  obtain ⟨m, _, g⟩ := hpl
-  forward g
-  forward g
-  forward g
-  apply rec23 at g
-  forward g
-  rw [← List.cons_append] at g
-  rw [← List.replicate_succ] at g
-  rw [← List.cons_append] at g
-  rw [← List.replicate_succ] at g
-  rw [List.append_cons] at g
-  rw [← List.replicate_succ'] at g
-  apply rec24 at g
-  forward g
-  rw [← List.cons_append] at g
-  rw [← List.replicate_succ] at g
-  rw [← List.cons_append] at g
-  rw [← List.replicate_succ] at g
-  rw [List.append_cons] at g
-  rw [← List.replicate_succ'] at g
-  rw [← List.append_assoc] at g
-  rw [← List.replicate_add] at g
-  apply n_prime_17 at g
-  refine (?_ ∘ g) ?_
-  . clear g
-    intros g
-    obtain ⟨n, _, g⟩ := g
-    forward g
-    forward g
-    forward g
-    rw [← List.cons_append] at g
-    rw [← List.replicate_succ] at g
-    apply rec26 at g
-    use (3 + n + (2 + l1 + r1 + 1) + 1)
-    constructor
-    . omega
-    . rw [g]
-      simp [Turing.ListBlank.mk]
-      rw [Quotient.eq'']
-      right
-      use 2
-      ring_nf
-      tauto
-  . apply (@Nat.not_prime_of_dvd_of_lt 2)
-    any_goals omega
-    ring_nf
-    rw [add_assoc]
-    apply Nat.dvd_add
-    . omega
-    . apply Even.two_dvd
-      assumption
-. rw [g]
-  simp! [Turing.ListBlank.mk]
+have h : Turing.ListBlank.mk (List.replicate l1 Γ.one) = Turing.ListBlank.mk (List.replicate l1 Γ.one ++ [Γ.zero]) := by
+  simp! [g, Turing.ListBlank.mk]
   rw [Quotient.eq'']
   left
   use 1
   tauto
+rw [h] at g
+apply (rec24 l1 (1+j) []) at g
+forward g
+apply prime_21 at hpl
+pick_goal 5
+. rw [g]
+  simp
+  constructor <;> rfl
+obtain ⟨m, _, g⟩ := hpl
+forward g
+forward g
+forward g
+apply rec23 at g
+forward g
+rw [← List.cons_append] at g
+rw [← List.replicate_succ] at g
+rw [← List.cons_append] at g
+rw [← List.replicate_succ] at g
+rw [List.append_cons] at g
+rw [← List.replicate_succ'] at g
+apply rec24 at g
+forward g
+rw [← List.cons_append] at g
+rw [← List.replicate_succ] at g
+rw [← List.cons_append] at g
+rw [← List.replicate_succ] at g
+rw [List.append_cons] at g
+rw [← List.replicate_succ'] at g
+rw [← List.append_assoc] at g
+rw [← List.replicate_add] at g
+apply n_prime_17 at g
+refine (?_ ∘ g) ?_
+. clear g
+  intros g
+  obtain ⟨n, _, g⟩ := g
+  forward g
+  forward g
+  forward g
+  rw [← List.cons_append] at g
+  rw [← List.replicate_succ] at g
+  apply rec22 at g
+  use (3 + n + (2 + l1 + r1 + 1) + 1)
+  constructor
+  . omega
+  . rw [g]
+    simp [Turing.ListBlank.mk]
+    rw [Quotient.eq'']
+    right
+    use 2
+    ring_nf
+    tauto
+. apply (@Nat.not_prime_of_dvd_of_lt 2)
+  any_goals omega
+  ring_nf
+  rw [add_assoc]
+  apply Nat.dvd_add
+  . omega
+  . apply Even.two_dvd
+    assumption
 
 
 theorem leap_18 (l1 : ℕ) : ∀ (i r1: ℕ),
@@ -188,7 +187,7 @@ l1 + r1 ≥ 2 →
 Even (l1+r1) →
 nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩ →
 (∃ x y, x + y = l1 + r1 + 2 /\ Nat.Prime x /\ Nat.Prime y /\ (r1+1) ≤ x /\ x ≤ y) →
-∃ j>i, nth_cfg j = some ⟨⟨26, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩
+∃ j>i, nth_cfg j = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩
 := by
 induction l1 with
 | zero => omega
@@ -294,4 +293,4 @@ induction l1 with
       ring_nf
       tauto
 
-end Tm27
+end Tm26
