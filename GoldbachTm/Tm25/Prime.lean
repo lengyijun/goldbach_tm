@@ -1,8 +1,10 @@
-import GoldbachTm.Tm26.TuringMachine26
-import GoldbachTm.Tm26.Transition
-import GoldbachTm.Tm26.Miscellaneous
+import GoldbachTm.Tm25.TuringMachine25
+import GoldbachTm.Tm25.Transition
+import GoldbachTm.Tm25.Miscellaneous
+import Mathlib.Data.Nat.ModEq
+import Mathlib.Data.Nat.Prime.Basic
 
-namespace Tm26
+namespace Tm25
 
 -- c1++, c2++
 --    l 0 [la 11] 0  [lb 11] 0 [ra 11111] 0  [(rb+1) 1] 0 r
@@ -147,10 +149,10 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
           ring_nf at *
           apply Nat.ModEq.trans h₁
           rw [Nat.modEq_zero_iff_dvd]
-| succ lb' => apply lemma_15_to_19 at g
+| succ lb' => apply lemma_15_to_18 at g
               obtain ⟨m, g⟩ := g
               forward g
-              apply rec20 at g
+              apply rec19 at g
               forward g
               forward g
               forward g
@@ -184,13 +186,13 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
 --
 --    l 0 1 1  [lb 11]    1  1  [rb 1] 0 r
 --      ^
---      17
+--      16
 theorem step_10_dvd (i lb rb: ℕ) (l r : List Γ) :
 nth_cfg i = some ⟨⟨10, by omega⟩, ⟨Γ.one,
   Turing.ListBlank.mk (List.replicate lb Γ.one ++ Γ.zero :: Γ.one :: Γ.zero :: l),
   Turing.ListBlank.mk (List.cons Γ.zero (List.replicate rb Γ.one ++ List.cons Γ.zero r))⟩⟩ →
   (lb + 2) ∣ (rb + 2) →
-∃ j>i, nth_cfg j = some ⟨⟨17, by omega⟩, ⟨Γ.zero,
+∃ j>i, nth_cfg j = some ⟨⟨16, by omega⟩, ⟨Γ.zero,
   Turing.ListBlank.mk l,
   Turing.ListBlank.mk (List.replicate (lb+rb+4) Γ.one ++ List.cons Γ.zero r)⟩⟩
 := by
@@ -211,7 +213,7 @@ cases lb' with (simp! [*, -nth_cfg] at g; simp_all)
 | zero => subst la'
           forward g
           forward g
-          apply rec17 at g
+          apply rec16 at g
           use (6 + k + j + rb + (1+lb)+1)
           constructor
           . omega
@@ -272,11 +274,11 @@ induction rb with intros i lb l r g p
                 rw [← List.replicate_succ]
                 ring_nf
 
-theorem prime_21 (i r1: ℕ) (l r : List Γ)
+theorem prime_20 (i r1: ℕ) (l r : List Γ)
 (g :
 nth_cfg i = some ⟨⟨0, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero r)⟩⟩)
 (p : Nat.Prime (r1+1)) :
-∃ j>i, nth_cfg j = some ⟨⟨21, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (r1+1) Γ.one ++ List.cons Γ.zero r)⟩⟩ :=
+∃ j>i, nth_cfg j = some ⟨⟨20, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (r1+1) Γ.one ++ List.cons Γ.zero r)⟩⟩ :=
 match h : r1 with
 | Nat.zero => by subst r1
                  exfalso
@@ -327,10 +329,10 @@ match h : r1 with
   | zero => exfalso
             have g : ¬ Nat.Prime 4 := by decide
             apply g p
-  | succ r1 => apply lemma_15_to_19 at g
+  | succ r1 => apply lemma_15_to_18 at g
                obtain ⟨k, g⟩ := g
                forward g
-               apply rec20 at g
+               apply rec19 at g
                forward g
                forward g
                forward g
@@ -339,7 +341,7 @@ match h : r1 with
                rw [List.append_cons, ← List.replicate_succ'] at g
                rw [← List.cons_append] at g
                rw [← List.replicate_succ] at g
-               apply rec21 at g
+               apply rec20 at g
                use (11 + k + j + r1 + (r1 + 1 + 1 + 1) + 1)
                constructor
                . omega
@@ -354,13 +356,13 @@ match h : r1 with
 --
 --    l 0 1 1  [lb 11]    1  1  [rb 1] 0 r
 --      ^
---      17
+--      16
 theorem leap_10_dvd  (rb : ℕ) : ∀ (i lb: ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨10, by omega⟩, ⟨Γ.one,
   Turing.ListBlank.mk (List.replicate lb Γ.one ++ Γ.zero :: Γ.one :: Γ.zero :: l),
   Turing.ListBlank.mk (List.cons Γ.zero (List.replicate rb Γ.one ++ List.cons Γ.zero r))⟩⟩ →
 (∃ divisor, divisor ≥ (lb+2) /\ divisor < lb + rb + 4 /\ divisor ∣ (lb + rb + 4)) →
-∃ j>i, nth_cfg j = some ⟨⟨17, by omega⟩, ⟨Γ.zero,
+∃ j>i, nth_cfg j = some ⟨⟨16, by omega⟩, ⟨Γ.zero,
   Turing.ListBlank.mk l,
   Turing.ListBlank.mk (List.replicate (lb+rb+4) Γ.one ++ List.cons Γ.zero r)⟩⟩
 := by
@@ -415,11 +417,11 @@ induction rb with intros i lb l r g hd
                     assumption
                   . omega
 
-theorem n_prime_17 (i r1: ℕ) (l r : List Γ)
+theorem n_prime_16 (i r1: ℕ) (l r : List Γ)
 (g :
 nth_cfg i = some ⟨⟨0, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate r1 Γ.one ++ List.cons Γ.zero r)⟩⟩)
 (hp : ¬ Nat.Prime (r1+1)) :
-∃ j>i, nth_cfg j = some ⟨⟨17, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (r1+1) Γ.one ++ List.cons Γ.zero r)⟩⟩ :=
+∃ j>i, nth_cfg j = some ⟨⟨16, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk l, Turing.ListBlank.mk (List.replicate (r1+1) Γ.one ++ List.cons Γ.zero r)⟩⟩ :=
 match r1 with
 | Nat.zero => by simp_all
                  forward g
@@ -462,4 +464,4 @@ match r1 with
     rw [g] at h
     exact h
 
-end Tm26
+end Tm25

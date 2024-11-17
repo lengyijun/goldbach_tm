@@ -1,24 +1,24 @@
 -- PDP is short for "prime board prime"
-import GoldbachTm.Tm26.TuringMachine26
-import GoldbachTm.Tm26.Search0
-import GoldbachTm.Tm26.Prime
+import GoldbachTm.Tm25.TuringMachine25
+import GoldbachTm.Tm25.Search0
+import GoldbachTm.Tm25.Prime
 import Mathlib.Data.Nat.Prime.Defs
 
-namespace Tm26
+namespace Tm25
 
 -- l1 : count of 1 on the left
 -- r1 : count of 1 on the right
-theorem lemma_18 (i l1 r1: ℕ)
+theorem lemma_17 (i l1 r1: ℕ)
 (hp : ¬ Nat.Prime (l1+1) \/ ¬ Nat.Prime (r1+1))
 (g :
-nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
+nth_cfg i = some ⟨⟨17, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
 ):
-∃ j>i, nth_cfg j = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate l1 Γ.one), Turing.ListBlank.mk (List.replicate (r1+2) Γ.one)⟩⟩ := by
+∃ j>i, nth_cfg j = some ⟨⟨17, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate l1 Γ.one), Turing.ListBlank.mk (List.replicate (r1+2) Γ.one)⟩⟩ := by
 forward g
 forward g
 forward g
 by_cases hr1 : Nat.Prime (r1+1)
-. refine (?_ ∘ (prime_21 (3+i) r1 (Γ.one :: List.replicate l1 Γ.one) [])) ?_
+. refine (?_ ∘ (prime_20 (3+i) r1 (Γ.one :: List.replicate l1 Γ.one) [])) ?_
   . intros g
     specialize g hr1
     obtain ⟨j, _, g⟩ := g
@@ -30,10 +30,10 @@ by_cases hr1 : Nat.Prime (r1+1)
       use 1
       tauto
     rw [h] at g
-    apply (rec24 l1 (1+j) []) at g
+    apply (rec23 l1 (1+j) []) at g
     forward g
     have h : ¬ Nat.Prime (l1+1) := by tauto
-    apply n_prime_17 at h
+    apply n_prime_16 at h
     pick_goal 5
     . rw [g]
       simp
@@ -41,7 +41,7 @@ by_cases hr1 : Nat.Prime (r1+1)
       all_goals rfl
     obtain ⟨m, _, h⟩ := h
     iterate 3 forward h
-    apply rec22 at h
+    apply rec21 at h
     forward h
     use (5+m+l1)
     constructor
@@ -61,7 +61,7 @@ by_cases hr1 : Nat.Prime (r1+1)
     left
     use 1
     tauto
-. apply n_prime_17 at hr1
+. apply n_prime_16 at hr1
   pick_goal 5
   . rw [g]
     simp
@@ -95,13 +95,13 @@ theorem both_prime (i l1 r1: ℕ)
 (hpr : Nat.Prime (r1+1))
 (even_sum : Even (l1+r1))
 (g :
-nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
+nth_cfg i = some ⟨⟨17, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩
 ) :
-∃ j>i, nth_cfg j = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩ := by
+∃ j>i, nth_cfg j = some ⟨⟨21, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩ := by
 forward g
 forward g
 forward g
-apply prime_21 at hpr
+apply prime_20 at hpr
 pick_goal 5
 . rw [g]
   simp
@@ -122,9 +122,9 @@ have h : Turing.ListBlank.mk (List.replicate l1 Γ.one) = Turing.ListBlank.mk (L
   use 1
   tauto
 rw [h] at g
-apply (rec24 l1 (1+j) []) at g
+apply (rec23 l1 (1+j) []) at g
 forward g
-apply prime_21 at hpl
+apply prime_20 at hpl
 pick_goal 5
 . rw [g]
   simp
@@ -133,7 +133,7 @@ obtain ⟨m, _, g⟩ := hpl
 forward g
 forward g
 forward g
-apply rec23 at g
+apply rec22 at g
 forward g
 rw [← List.cons_append] at g
 rw [← List.replicate_succ] at g
@@ -141,7 +141,7 @@ rw [← List.cons_append] at g
 rw [← List.replicate_succ] at g
 rw [List.append_cons] at g
 rw [← List.replicate_succ'] at g
-apply rec24 at g
+apply rec23 at g
 forward g
 rw [← List.cons_append] at g
 rw [← List.replicate_succ] at g
@@ -151,7 +151,7 @@ rw [List.append_cons] at g
 rw [← List.replicate_succ'] at g
 rw [← List.append_assoc] at g
 rw [← List.replicate_add] at g
-apply n_prime_17 at g
+apply n_prime_16 at g
 refine (?_ ∘ g) ?_
 . clear g
   intros g
@@ -161,7 +161,7 @@ refine (?_ ∘ g) ?_
   forward g
   rw [← List.cons_append] at g
   rw [← List.replicate_succ] at g
-  apply rec22 at g
+  apply rec21 at g
   use (3 + n + (2 + l1 + r1 + 1) + 1)
   constructor
   . omega
@@ -182,12 +182,12 @@ refine (?_ ∘ g) ?_
     assumption
 
 
-theorem leap_18 (l1 : ℕ) : ∀ (i r1: ℕ),
+theorem leap_17 (l1 : ℕ) : ∀ (i r1: ℕ),
 l1 + r1 ≥ 2 →
 Even (l1+r1) →
-nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩ →
+nth_cfg i = some ⟨⟨17, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩ →
 (∃ x y, x + y = l1 + r1 + 2 /\ Nat.Prime x /\ Nat.Prime y /\ (r1+1) ≤ x /\ x ≤ y) →
-∃ j>i, nth_cfg j = some ⟨⟨22, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩
+∃ j>i, nth_cfg j = some ⟨⟨21, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (l1+r1+4) Γ.one), Turing.ListBlank.mk []⟩⟩
 := by
 induction l1 with
 | zero => omega
@@ -195,7 +195,7 @@ induction l1 with
   intros i r1 h _ g hpp
   by_cases hp : ¬ Nat.Prime (l1+2) \/ ¬ Nat.Prime (r1+1)
   . -- induction step
-    apply lemma_18 at g
+    apply lemma_17 at g
     any_goals tauto
     obtain ⟨j, _, g⟩ := g
     apply induction_step at g
@@ -231,9 +231,9 @@ induction l1 with
     all_goals tauto
 
 
-theorem leap_18_halt (l1 : ℕ) : ∀ (i r1: ℕ),
+theorem leap_17_halt (l1 : ℕ) : ∀ (i r1: ℕ),
 l1 + r1 ≥ 2 →
-nth_cfg i = some ⟨⟨18, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩ →
+nth_cfg i = some ⟨⟨17, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate (l1+1) Γ.one), Turing.ListBlank.mk (List.replicate (r1+1) Γ.one)⟩⟩ →
 (∀ x y, x + y = l1 + r1 + 2 /\ Nat.Prime x /\ Nat.Prime y → False) →
 ∃ j, nth_cfg j = none
 := by
@@ -249,7 +249,7 @@ induction l1 with
   rw [← List.replicate_succ] at g
   rw [← List.replicate_succ] at g
   by_cases hp : Nat.Prime (r2+3)
-  . apply prime_21 at hp
+  . apply prime_20 at hp
     pick_goal 5
     . rw [g]
       simp
@@ -263,7 +263,7 @@ induction l1 with
     obtain ⟨j, _, h⟩ := hp
     iterate 13 forward h
     use (13+j)
-  . apply n_prime_17 at hp
+  . apply n_prime_16 at hp
     pick_goal 5
     . rw [g]
       simp
@@ -279,7 +279,7 @@ induction l1 with
     use (3+j)
 | succ l1 induction_step =>
     intros i r1 h g hpp
-    apply lemma_18 at g
+    apply lemma_17 at g
     . obtain ⟨j, _, g⟩ := g
       apply induction_step at g
       any_goals omega
@@ -293,4 +293,4 @@ induction l1 with
       ring_nf
       tauto
 
-end Tm26
+end Tm25

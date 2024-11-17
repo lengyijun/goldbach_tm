@@ -1,7 +1,7 @@
-import GoldbachTm.Tm26.TuringMachine26
+import GoldbachTm.Tm25.TuringMachine25
 import GoldbachTm.Basic
 
-open Tm26
+open Tm25
 
 unsafe def foo (cfg : Cfg) : IO Unit :=
 match (step machine cfg) with

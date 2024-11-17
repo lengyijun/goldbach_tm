@@ -4,13 +4,13 @@ import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
 
-import GoldbachTm.Tm26.TuringMachine26
-import GoldbachTm.Tm26.Search0
-import GoldbachTm.Tm26.Transition
-import GoldbachTm.Tm26.Miscellaneous
-import GoldbachTm.Tm26.Prime
-import GoldbachTm.Tm26.PBP
-import GoldbachTm.Tm26.Content
+import GoldbachTm.Tm25.TuringMachine25
+import GoldbachTm.Tm25.Search0
+import GoldbachTm.Tm25.Transition
+import GoldbachTm.Tm25.Miscellaneous
+import GoldbachTm.Tm25.Prime
+import GoldbachTm.Tm25.PBP
+import GoldbachTm.Tm25.Content
 
 import GoldbachTm.Tm31.TuringMachine31
 import GoldbachTm.Tm31.Search0

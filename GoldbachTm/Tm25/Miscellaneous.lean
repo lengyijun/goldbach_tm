@@ -1,9 +1,9 @@
 -- some lemmas tm31 doesn't contain
 
-import GoldbachTm.Tm26.TuringMachine26
-import GoldbachTm.Tm26.Transition
+import GoldbachTm.Tm25.TuringMachine25
+import GoldbachTm.Tm25.Transition
 
-namespace Tm26
+namespace Tm25
 
 theorem lemma7 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨7, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
@@ -39,7 +39,7 @@ induction k with (intros i l r h; simp_all)
 
 theorem lemma5 (k : ℕ): ∀ (i : ℕ) (l r : List Γ),
 nth_cfg i = some ⟨⟨5, by omega⟩, ⟨Γ.one, Turing.ListBlank.mk (List.replicate k Γ.one ++ List.cons Γ.zero l), Turing.ListBlank.mk r⟩⟩ →
-nth_cfg (i + k + 2) = some ⟨⟨4, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate k Γ.zero ++ r)⟩⟩ := by
+nth_cfg (i + k + 2) = some ⟨⟨7, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (Γ.zero :: l), Turing.ListBlank.mk (List.replicate k Γ.zero ++ r)⟩⟩ := by
 induction k with (intros i l r h; simp_all)
 | zero => iterate 2 forward h
           rw [← h]
@@ -111,4 +111,4 @@ cases r1 with simp_all
              simp [h]
              omega
 
-end Tm26
+end Tm25

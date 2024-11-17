@@ -129,7 +129,7 @@ induction n with
 
 /-
 P i => nth_cfg i ≠ none
-Q i n => nth_cfg i = some ⟨⟨25, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩
+Q i n => nth_cfg i = some ⟨⟨24, by omega⟩, ⟨Γ.zero, Turing.ListBlank.mk (List.replicate (2*n+4) Γ.one), Turing.ListBlank.mk []⟩⟩
 -/
 theorem propagating_induction (P : ℕ → Prop) (Q : ℕ → ℕ → Prop)
                (base : ℕ) (hbase : Q base 0)

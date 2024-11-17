@@ -17,5 +17,8 @@ lean_lib «GoldbachTm» where
 lean_exe «sim31» where
   root := `GoldbachTm.Tm31.Sim31
 
-lean_exe «sim26» where
-  root := `GoldbachTm.Tm26.Sim26
+lean_exe «sim25» where
+  root := `GoldbachTm.Tm25.Sim25
+
+lean_exe «SearchUnvisitedBranch» where
+  root := `GoldbachTm.Tm25.SearchUnvisitedBranch

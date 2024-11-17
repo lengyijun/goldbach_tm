@@ -1,7 +1,7 @@
-import GoldbachTm.Tm26.TuringMachine26
-import GoldbachTm.Tm26.Search0
+import GoldbachTm.Tm25.TuringMachine25
+import GoldbachTm.Tm25.Search0
 
-namespace Tm26
+namespace Tm25
 
 theorem lemma_10_to_11 (i : ℕ) (r1: ℕ) (l r : List Γ)
 (h :
@@ -20,13 +20,13 @@ cases r1 with
              rw [← h]
              ring_nf
 
-theorem lemma_15_to_19 (i : ℕ) (l1: ℕ) (l r : List Γ)
+theorem lemma_15_to_18 (i : ℕ) (l1: ℕ) (l r : List Γ)
 (h :
 nth_cfg i = some ⟨⟨15, by omega⟩, ⟨Γ.one,
   Turing.ListBlank.mk (List.replicate l1 Γ.one ++ List.cons Γ.zero l),
   Turing.ListBlank.mk r,
   ⟩⟩) :
-∃ j, nth_cfg (j + i) = some ⟨⟨19, by omega⟩, ⟨Γ.zero,
+∃ j, nth_cfg (j + i) = some ⟨⟨18, by omega⟩, ⟨Γ.zero,
     Turing.ListBlank.mk l,
     Turing.ListBlank.mk (List.replicate (l1+1) Γ.one ++ r),
     ⟩⟩
@@ -35,11 +35,11 @@ forward h
 cases l1 with simp! [*, -nth_cfg] at h
 | zero => use 1
           simp [h]
-| succ r1 =>  apply rec19 at h
+| succ r1 =>  apply rec18 at h
               use (r1+2)
               ring_nf at *
               simp [h]
               rw [List.append_cons, ← List.replicate_succ']
               ring_nf
 
-end Tm26
+end Tm25
