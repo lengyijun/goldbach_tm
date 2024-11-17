@@ -4,6 +4,7 @@ import GoldbachTm.Tm31.TuringMachine31
 import GoldbachTm.Tm31.Transition
 import Mathlib.Data.Nat.Prime.Defs
 import Mathlib.Data.Nat.ModEq
+import Mathlib.Data.Nat.Prime.Basic
 
 namespace Tm31
 

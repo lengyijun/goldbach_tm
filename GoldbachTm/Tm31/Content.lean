@@ -20,6 +20,7 @@ refine (?_ ∘ g) ?_
   use (1+k)
   ring_nf at *
   simp [h]
+  omega
 . obtain ⟨x, y, _, hx, hy⟩ := hpp
   by_cases x ≤ y
   . use! x, y

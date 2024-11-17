@@ -1,6 +1,6 @@
 -- inspired by https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Computability/TuringMachine.lean
 import Mathlib.Computability.TuringMachine
-import Mathlib.Data.Real.Sqrt
+import Mathlib.Tactic.Ring.RingNF
 import GoldbachTm.Basic
 import GoldbachTm.Format
 import GoldbachTm.ListBlank
